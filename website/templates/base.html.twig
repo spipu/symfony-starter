@@ -1,0 +1,25 @@
+{% extends '@SpipuUi/base.html.twig' %}
+
+{% block html_head %}{{  parent() }}
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+{% endblock %}
+
+{% block header_title %}{{ 'app.website.name'|get_config }}{% endblock %}
+
+{% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block main_class %}container{% endblock %}
+
+{% block body %}{% endblock %}
+
+{% block footer %}
+    &copy; {{ "now"|date("Y") }} - {{ 'app.website.name'|get_config }} Website
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ include('@SpipuUi/translator.html.twig') }}
+    {{ include('/translator.html.twig') }}
+{% endblock %}

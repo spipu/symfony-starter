@@ -1,0 +1,91 @@
+deptrac:
+  paths:
+    - ./src
+  layers:
+    # MVC Layers
+    - name: MVC_Controller
+      collectors:
+        - type: className
+          regex: .*\\Controller\\.*
+    - name: MVC_Entity
+      collectors:
+        - type: className
+          regex: .*\\Entity\\.*
+    - name: MVC_Fixture
+      collectors:
+        - type: className
+          regex: .*\\Fixture\\.*
+    - name: MVC_Form
+      collectors:
+        - type: className
+          regex: .*\\Form\\[^\\]*$
+    - name: MVC_FormOptions
+      collectors:
+        - type: className
+          regex: .*\\Form\\Options\\.*
+    - name: MVC_Repository
+      collectors:
+        - type: className
+          regex: .*\\Repository\\.*
+    - name: MVC_Service
+      collectors:
+        - type: className
+          regex: .*\\Service\\.*
+    - name: MVC_Ui
+      collectors:
+        - type: className
+          regex: .*\\Ui\\.*
+    - name: MVC_Validator
+      collectors:
+        - type: className
+          regex: .*\\Validator\\.*
+    - name: MVC_Twig
+      collectors:
+        - type: className
+          regex: .*\\Twig\\.*
+
+  ruleset:
+    # MVC
+    MVC_Controller:
+      - MVC_Entity
+      - MVC_Repository
+      - MVC_Service
+      - MVC_Ui
+      - MVC_Form
+      - MVC_FormOptions
+      - MVC_Validator
+    MVC_Entity:
+      - MVC_Validator
+      - MVC_FormOptions
+    MVC_Fixture:
+      - MVC_Entity
+      - MVC_Repository
+      - MVC_Service
+    MVC_Form:
+      - MVC_Entity
+      - MVC_FormOptions
+      - MVC_Repository
+      - MVC_Service
+    MVC_FormOptions:
+      - MVC_Entity
+      - MVC_Repository
+      - MVC_Service
+    MVC_Repository:
+      - MVC_Entity
+      - MVC_Service
+      - MVC_FormOptions
+    MVC_Service:
+      - MVC_Entity
+      - MVC_Repository
+      - MVC_FormOptions
+      - MVC_Form
+    MVC_Ui:
+      - MVC_Entity
+      - MVC_FormOptions
+      - MVC_Repository
+      - MVC_Service
+    MVC_Validator:
+      - MVC_Repository
+      - MVC_Service
+    MVC_Twig:
+      - MVC_Service

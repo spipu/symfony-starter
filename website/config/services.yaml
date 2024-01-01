@@ -1,0 +1,89 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+    # HTTPS configuration for CLI
+    router.request_context.scheme: 'https'
+    asset.request_context.secure: true
+    # Encryptor Configuration
+    spipu.core.encryptor.key_pair: "%APP_SETTINGS_APP_ENCRYPTOR_KEY_PAIR%"
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    app.session.redis.client:
+        class: 'Predis\Client'
+        public: true
+        arguments:
+            - "%APP_SETTINGS_REDIS_SESSION_URL%"
+
+    app.session.handler:
+        class: Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler
+        arguments:
+            - '@app.session.redis.client'
+            - prefix: 'smp_'
+
+    App\Fixture\:
+        resource: '../src/Fixture/*'
+        tags: ['spipu.fixture']
+
+    App\Twig\UiExtension:
+        autowire: true
+        autoconfigure: true
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+
+    App\Service\RedisClient:
+        autowire: true
+        arguments:
+            $redisDsn: "%APP_SETTINGS_REDIS_CACHE_URL%"
+
+    Spipu\CoreBundle\Service\Environment:
+        autowire: true
+        arguments:
+            $currentCode: '%APP_SETTINGS_APP_CODE%'
+
+    App\Service\HostService:
+        arguments:
+            $host: '%ENV_HOST%'
+
+    App\Step\:
+        resource: '../src/Step/*'
+        tags: ['spipu.process.step']
+        public: true
+        autowire: true
+
+    spipu.ui.service.menu_definition:
+        class: 'App\Service\MenuDefinition'
+        autowire: true
+
+    App\Service\RoleDefinition:
+        public: true
+        tags: ['spipu.user.role']
+
+    Spipu\UserBundle\Service\MailConfigurationInterface:
+        class: 'App\Service\MailConfiguration'
+        autowire: true
+
+    Spipu\UserBundle\Service\ModuleConfigurationInterface:
+        class: Spipu\UserBundle\Service\ModuleConfiguration
+        public: true
+        autowire: true
+        arguments:
+            $entityName:      '\App\Entity\AdminUser'
+            $entityClassName: '\App\Entity\AdminUser'
+            $allowAccountCreation: false
+            $allowPasswordRecovery: true

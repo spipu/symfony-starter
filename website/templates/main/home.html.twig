@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% import '@SpipuUi/macro/buttons.html.twig' as buttons %}
+
+{% set menuCurrentItem="app-home" %}
+
+{% block header_title %}{{ parent() }} - Home{% endblock %}
+
+{% block main_title %}Starter{% endblock %}
+
+{% block body %}
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    Welcome to Starter Project
+                </div>
+                <div class="card-body">
+                    You are on the <b>{{ environment.currentName }}</b> environment.
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

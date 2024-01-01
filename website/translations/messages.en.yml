@@ -1,0 +1,41 @@
+app:
+    flash_alert_message:
+        success: "Success operations"
+        not_found: "This item does not exist"
+
+    confirm:
+        delete: "Are you sure you want to delete this item?"
+
+    slim_select:
+        select: "Select a value"
+        search: "Search"
+        no_result: "No result"
+        min_search: "You need to enter at least %1 chars"
+
+    label:
+        please_wait: "Please wait..."
+
+    action:
+        cancel: "Cancel"
+        confirm: "Confirm"
+        back_to_list: "Back to the list"
+
+    entity:
+        field:
+            id: "Id"
+            code: "Code"
+            name: "Name"
+            created_at: "Created"
+            updated_at: "Updated"
+        fieldset:
+            information: "Information"
+            others: "Others"
+        value:
+            other: "Other"
+
+    role:
+        admin: "Administration"
+
+    menu:
+        admin: "Admin"
+        admin_user: "Admin Users"

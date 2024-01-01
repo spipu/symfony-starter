@@ -1,0 +1,18 @@
+imports:
+    - { resource: "@SpipuConfigurationBundle/config/spipu_configuration.yaml" }
+    - { resource: "@SpipuProcessBundle/config/spipu_configuration.yaml" }
+
+spipu_configuration:
+    app.website.url:
+        type: string
+        required: true
+
+    app.website.name:
+        type:     "string"
+        required: true
+        default:  "Starter"
+
+    app.email.receive.webmaster:
+        type:     "email"
+        required: true
+        default:  "webmaster@starter.lxd"

@@ -1,0 +1,156 @@
+{
+    "name": "spipu/symfomny-starter",
+    "type": "project",
+    "license": "MIT",
+    "description": "Symfony Starter Project",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.1",
+        "ext-ctype": "*",
+        "ext-curl": "*",
+        "ext-fileinfo": "*",
+        "ext-iconv": "*",
+        "ext-json": "*",
+        "ext-pdo": "*",
+        "doctrine/doctrine-bundle": "^2.11",
+        "doctrine/doctrine-migrations-bundle": "^3.3",
+        "doctrine/orm": "^2.17",
+        "phpdocumentor/reflection-docblock": "^5.3",
+        "phpstan/phpdoc-parser": "^1.24",
+        "predis/predis": "*",
+        "spipu/configuration-bundle": "*",
+        "spipu/core-bundle": "*",
+        "spipu/dashboard-bundle": "*",
+        "spipu/html2pdf": "^5.2",
+        "spipu/process-bundle": "*",
+        "spipu/ui-bundle": "*",
+        "spipu/user-bundle": "*",
+        "symfony/asset": "*",
+        "symfony/console": "*",
+        "symfony/dotenv": "*",
+        "symfony/expression-language": "*",
+        "symfony/flex": "*",
+        "symfony/form": "*",
+        "symfony/framework-bundle": "*",
+        "symfony/http-client": "*",
+        "symfony/intl": "*",
+        "symfony/mailer": "*",
+        "symfony/mailgun-mailer": "*",
+        "symfony/monolog-bundle": "*",
+        "symfony/notifier": "*",
+        "symfony/process": "*",
+        "symfony/property-access": "*",
+        "symfony/property-info": "*",
+        "symfony/runtime": "*",
+        "symfony/security-bundle": "*",
+        "symfony/serializer": "*",
+        "symfony/string": "*",
+        "symfony/translation": "*",
+        "symfony/twig-bundle": "*",
+        "symfony/uid": "*",
+        "symfony/validator": "*",
+        "symfony/web-link": "*",
+        "symfony/webpack-encore-bundle": "^2.0",
+        "symfony/yaml": "*",
+        "twig/extra-bundle": "^3.0",
+        "twig/intl-extra": "^3.2",
+        "twig/twig": "^3.0"
+    },
+    "require-dev": {
+        "dbrekelmans/bdi": "^1.0",
+        "edgedesign/phpqa": "*",
+        "php-parallel-lint/php-parallel-lint": "*",
+        "pdepend/pdepend": "*",
+        "phpmd/phpmd": "*",
+        "phpmetrics/phpmetrics": "*",
+        "phpunit/phpunit": "^9.5",
+        "squizlabs/php_codesniffer": "*",
+        "qossmic/deptrac-shim": "*",
+        "symfony/browser-kit": "*",
+        "symfony/css-selector": "*",
+        "symfony/debug-bundle": "*",
+        "symfony/maker-bundle": "*",
+        "symfony/panther": "*",
+        "symfony/phpunit-bridge": "*",
+        "symfony/stopwatch": "*",
+        "symfony/var-dumper": "*",
+        "symfony/web-profiler-bundle": "*"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true,
+        "platform": {
+            "php": "8.1.2",
+            "ext-bcmath": "1",
+            "ext-ctype": "1",
+            "ext-gd": "1",
+            "ext-spl": "1",
+            "ext-dom": "1",
+            "ext-simplexml": "1",
+            "ext-mcrypt": "1",
+            "ext-hash": "1",
+            "ext-curl": "1",
+            "ext-iconv": "1",
+            "ext-intl": "1",
+            "ext-xsl": "1",
+            "ext-mbstring": "1",
+            "ext-openssl": "1",
+            "ext-zip": "1",
+            "ext-pdo_mysql": "1",
+            "ext-soap": "1",
+            "lib-libxml": "1"
+        },
+        "allow-plugins": {
+            "php-http/discovery": true,
+            "symfony/flex": true,
+            "symfony/runtime": true
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/",
+            "Spipu\\ConfigurationBundle\\Tests\\":  "vendor/spipu/configuration-bundle/tests/",
+            "Spipu\\CoreBundle\\Tests\\":           "vendor/spipu/core-bundle/tests/",
+            "Spipu\\ProcessBundle\\Tests\\":        "vendor/spipu/process-bundle/tests/",
+            "Spipu\\UiBundle\\Tests\\":             "vendor/spipu/ui-bundle/tests/",
+            "Spipu\\UserBundle\\Tests\\":           "vendor/spipu/user-bundle/tests/"
+        }
+    },
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php72": "*",
+        "symfony/polyfill-php73": "*",
+        "symfony/polyfill-php74": "*",
+        "symfony/polyfill-php80": "*",
+        "symfony/polyfill-php81": "*",
+        "sebastian/phpcpd": "*",
+        "phploc/phploc": "*"
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ]
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "6.4.*"
+        }
+    }
+}

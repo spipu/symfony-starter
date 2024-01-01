@@ -1,0 +1,14 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+spipu_user:
+    resource: '@SpipuUserBundle/config/routes.yaml'
+
+spipu_configuration:
+    resource: '@SpipuConfigurationBundle/config/routes.yaml'
+
+spipu_process:
+    resource: '@SpipuProcessBundle/config/routes.yaml'

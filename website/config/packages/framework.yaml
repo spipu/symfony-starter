@@ -1,0 +1,36 @@
+# Only For system parameters
+imports:
+    - { resource: ../app_default_configuration.yaml }
+    - { resource: /etc/spipu/starter_symfony.yaml, ignore_errors: true  }
+
+# Other parameters
+parameters:
+    APP_SETTINGS_REDIS_CACHE_URL:   'redis://%APP_SETTINGS_REDIS_CACHE_HOST%:%APP_SETTINGS_REDIS_CACHE_PORT%/%APP_SETTINGS_REDIS_CACHE_DB%'
+    APP_SETTINGS_REDIS_SESSION_URL: 'redis://%APP_SETTINGS_REDIS_SESSION_HOST%:%APP_SETTINGS_REDIS_SESSION_PORT%/%APP_SETTINGS_REDIS_SESSION_DB%'
+
+# see https://symfony.com/doc/current/reference/configuration/framework.html
+framework:
+    secret: '%APP_SETTINGS_APP_SECRET%'
+    #csrf_protection: true
+    annotations: false
+    http_method_override: true
+    handle_all_throwables: true
+
+    # Enables session support. Note that the session will ONLY be started if you read or write from it.
+    # Remove or comment this section to explicitly disable session support.
+    session:
+        handler_id: '%APP_SETTINGS_SESSION_HANDLER%'
+        cookie_secure: auto
+        cookie_samesite: lax
+        storage_factory_id: session.storage.factory.native
+
+    #esi: true
+    #fragments: true
+    php_errors:
+        log: true
+
+when@test:
+    framework:
+        test: true
+        session:
+            storage_factory_id: session.storage.factory.mock_file
