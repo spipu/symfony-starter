@@ -27,13 +27,5 @@ class RoleDefinition implements RoleDefinitionInterface
             ->addChild('ROLE_ADMIN_MANAGE_PROCESS')
             ->addChild('ROLE_ADMIN_MANAGE_USER')
         ;
-
-        Item::load('ROLE_ADMIN_MANAGE_PROCESS')
-            ->addChild('ROLE_ADMIN_MANAGE_PROCESS_DOWNLOAD');
-
-        Item::load('ROLE_ADMIN_MANAGE_PROCESS_DOWNLOAD')
-            ->setLabel('app.role.admin_download')
-            ->setWeight(60)
-            ->addChild('ROLE_ADMIN');
     }
 }
