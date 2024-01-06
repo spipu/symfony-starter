@@ -1667,16 +1667,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "1.24.5",
+            "version": "1.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "fedf211ff14ec8381c9bf5714e33a7a552dd1acc"
+                "reference": "bd84b629c8de41aa2ae82c067c955e06f1b00240"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/fedf211ff14ec8381c9bf5714e33a7a552dd1acc",
-                "reference": "fedf211ff14ec8381c9bf5714e33a7a552dd1acc",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/bd84b629c8de41aa2ae82c067c955e06f1b00240",
+                "reference": "bd84b629c8de41aa2ae82c067c955e06f1b00240",
                 "shasum": ""
             },
             "require": {
@@ -1708,9 +1708,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.24.5"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.25.0"
             },
-            "time": "2023-12-16T09:33:33+00:00"
+            "time": "2024-01-04T17:06:16+00:00"
         },
         {
             "name": "predis/predis",
@@ -2081,16 +2081,16 @@
         },
         {
             "name": "spipu/configuration-bundle",
-            "version": "v4.0.0",
+            "version": "v4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spipu/symfony-bundle-configuration.git",
-                "reference": "f80ea8d1038704bd6f55d63b9918577ed6e92ffe"
+                "reference": "fbf9d1d7df7a09455395a5162f187645a9f6814b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spipu/symfony-bundle-configuration/zipball/f80ea8d1038704bd6f55d63b9918577ed6e92ffe",
-                "reference": "f80ea8d1038704bd6f55d63b9918577ed6e92ffe",
+                "url": "https://api.github.com/repos/spipu/symfony-bundle-configuration/zipball/fbf9d1d7df7a09455395a5162f187645a9f6814b",
+                "reference": "fbf9d1d7df7a09455395a5162f187645a9f6814b",
                 "shasum": ""
             },
             "require": {
@@ -2117,22 +2117,22 @@
             "description": "Spipu Configuration Bundle",
             "support": {
                 "issues": "https://github.com/spipu/symfony-bundle-configuration/issues",
-                "source": "https://github.com/spipu/symfony-bundle-configuration/tree/v4.0.0"
+                "source": "https://github.com/spipu/symfony-bundle-configuration/tree/v4.0.1"
             },
-            "time": "2023-12-15T13:00:36+00:00"
+            "time": "2024-01-06T00:26:39+00:00"
         },
         {
             "name": "spipu/core-bundle",
-            "version": "v4.0.1",
+            "version": "v4.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spipu/symfony-bundle-core.git",
-                "reference": "bda9c116e244dae4d69a9df26c4da1e5e04a6c8b"
+                "reference": "a30a3d35551a72af84bbf0cc6d8a7d7ad20a3bbc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spipu/symfony-bundle-core/zipball/bda9c116e244dae4d69a9df26c4da1e5e04a6c8b",
-                "reference": "bda9c116e244dae4d69a9df26c4da1e5e04a6c8b",
+                "url": "https://api.github.com/repos/spipu/symfony-bundle-core/zipball/a30a3d35551a72af84bbf0cc6d8a7d7ad20a3bbc",
+                "reference": "a30a3d35551a72af84bbf0cc6d8a7d7ad20a3bbc",
                 "shasum": ""
             },
             "require": {
@@ -2162,9 +2162,9 @@
             "description": "Spipu Core Bundle",
             "support": {
                 "issues": "https://github.com/spipu/symfony-bundle-core/issues",
-                "source": "https://github.com/spipu/symfony-bundle-core/tree/v4.0.1"
+                "source": "https://github.com/spipu/symfony-bundle-core/tree/v4.0.3"
             },
-            "time": "2024-01-01T22:54:18+00:00"
+            "time": "2024-01-06T00:48:59+00:00"
         },
         {
             "name": "spipu/dashboard-bundle",
@@ -2272,16 +2272,16 @@
         },
         {
             "name": "spipu/process-bundle",
-            "version": "v4.0.0",
+            "version": "v4.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spipu/symfony-bundle-process.git",
-                "reference": "a7042976cc716e67a4202dbea3dbb641a34571cb"
+                "reference": "2f5a39fdf79ca788ab8210b2ab25e3e84a95a2c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spipu/symfony-bundle-process/zipball/a7042976cc716e67a4202dbea3dbb641a34571cb",
-                "reference": "a7042976cc716e67a4202dbea3dbb641a34571cb",
+                "url": "https://api.github.com/repos/spipu/symfony-bundle-process/zipball/2f5a39fdf79ca788ab8210b2ab25e3e84a95a2c5",
+                "reference": "2f5a39fdf79ca788ab8210b2ab25e3e84a95a2c5",
                 "shasum": ""
             },
             "require": {
@@ -2312,22 +2312,22 @@
             "description": "Spipu Process Bundle",
             "support": {
                 "issues": "https://github.com/spipu/symfony-bundle-process/issues",
-                "source": "https://github.com/spipu/symfony-bundle-process/tree/v4.0.0"
+                "source": "https://github.com/spipu/symfony-bundle-process/tree/v4.0.2"
             },
-            "time": "2023-12-15T13:00:37+00:00"
+            "time": "2024-01-06T00:26:40+00:00"
         },
         {
             "name": "spipu/ui-bundle",
-            "version": "v4.0.0",
+            "version": "v4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spipu/symfony-bundle-ui.git",
-                "reference": "a37f0a6db5b4ee81472bb4d72f10b4f52fcb90d7"
+                "reference": "50d86112b09d95ce9f8141212f09aa0afbfa2473"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spipu/symfony-bundle-ui/zipball/a37f0a6db5b4ee81472bb4d72f10b4f52fcb90d7",
-                "reference": "a37f0a6db5b4ee81472bb4d72f10b4f52fcb90d7",
+                "url": "https://api.github.com/repos/spipu/symfony-bundle-ui/zipball/50d86112b09d95ce9f8141212f09aa0afbfa2473",
+                "reference": "50d86112b09d95ce9f8141212f09aa0afbfa2473",
                 "shasum": ""
             },
             "require": {
@@ -2358,9 +2358,9 @@
             "description": "Spipu User Interface Bundle",
             "support": {
                 "issues": "https://github.com/spipu/symfony-bundle-ui/issues",
-                "source": "https://github.com/spipu/symfony-bundle-ui/tree/v4.0.0"
+                "source": "https://github.com/spipu/symfony-bundle-ui/tree/v4.0.1"
             },
-            "time": "2023-12-15T13:00:37+00:00"
+            "time": "2024-01-05T10:15:11+00:00"
         },
         {
             "name": "spipu/user-bundle",
@@ -3642,16 +3642,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v2.4.2",
+            "version": "v2.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "67ee785f1aedada76461de7a7ec10cd7f8ff8d36"
+                "reference": "6b44ac75c7f07f48159ec36c2d21ef8cf48a21b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/67ee785f1aedada76461de7a7ec10cd7f8ff8d36",
-                "reference": "67ee785f1aedada76461de7a7ec10cd7f8ff8d36",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/6b44ac75c7f07f48159ec36c2d21ef8cf48a21b1",
+                "reference": "6b44ac75c7f07f48159ec36c2d21ef8cf48a21b1",
                 "shasum": ""
             },
             "require": {
@@ -3687,7 +3687,7 @@
             "description": "Composer plugin for Symfony",
             "support": {
                 "issues": "https://github.com/symfony/flex/issues",
-                "source": "https://github.com/symfony/flex/tree/v2.4.2"
+                "source": "https://github.com/symfony/flex/tree/v2.4.3"
             },
             "funding": [
                 {
@@ -3703,7 +3703,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-12-05T14:09:35+00:00"
+            "time": "2024-01-02T11:08:32+00:00"
         },
         {
             "name": "symfony/form",
