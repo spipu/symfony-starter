@@ -30,7 +30,6 @@ SSL_CERT_PRIVATE="${SSL_CERT_FOLDER}/dev-cert.key"
 SSL_CERT_CHAIN="${SSL_CERT_FOLDER}/dev-cert.key"
 
 # Apache
-APACHE_PROTECT_ADMIN="all"
 EXPORT_FOLDER="$ENV_FOLDER/$WEB_FOLDER/var/export/"
 
 # Symfony
