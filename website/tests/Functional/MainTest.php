@@ -1,11 +1,16 @@
 <?php
+
+declare(strict_types=1);
+
 namespace App\Tests\Functional;
 
 use App\Tests\WebTestCase;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 
+#[AllowMockObjectsWithoutExpectations]
 class MainTest extends WebTestCase
 {
-    public function testAdminKo()
+    public function testAdminKo(): void
     {
         $client = static::createPantherClient();
 
@@ -35,7 +40,7 @@ class MainTest extends WebTestCase
         $this->assertClientHasAlert($client, 'Invalid credentials');
     }
 
-    public function testAdminOk()
+    public function testAdminOk(): void
     {
         $client = static::createPantherClient();
 

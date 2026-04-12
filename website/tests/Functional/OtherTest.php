@@ -1,11 +1,16 @@
 <?php
+
+declare(strict_types=1);
+
 namespace App\Tests\Functional;
 
 use App\Tests\WebTestCase;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 
+#[AllowMockObjectsWithoutExpectations]
 class OtherTest extends WebTestCase
 {
-    public function testAdmin()
+    public function testAdmin(): void
     {
         $client = static::createPantherClient();
 

@@ -13,7 +13,7 @@ trait WebTestCaseTrait
 {
     use SpipuWebTestCaseTrait;
 
-    protected EntityManagerInterface $entityManager;
+    protected ?EntityManagerInterface $entityManager = null;
 
     protected function prepareGlobalDataPrimer(KernelInterface $kernel, ContainerInterface $container): void
     {

@@ -1,8 +1,12 @@
 <?php
+
+declare(strict_types=1);
+
 namespace App\Tests;
 
 use Exception;
 use Facebook\WebDriver\WebDriverDimension;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\Panther\Client;
 use Symfony\Component\Panther\Client as PantherClient;
@@ -11,6 +15,7 @@ use Symfony\Component\Panther\PantherTestCase;
 global $nbScreenShot;
 $nbScreenShot = 0;
 
+#[AllowMockObjectsWithoutExpectations]
 class WebTestCase extends PantherTestCase
 {
     use WebTestCaseTrait;
