@@ -72,6 +72,24 @@ sudo -u www-data bin/console
 
 **warning** always use the ̀`www-data` user to execute the symfony console
 
+## Redis
+
+Two Redis instances run on the dev environment:
+
+| Instance | Host | Port | Purpose |
+|---|---|---|---|
+| Cache | `127.0.0.1` | `6379` | Application cache |
+| Session | `127.0.0.1` | `6380` | User sessions |
+
+## Mail (Maildev)
+
+Outgoing emails are captured by [Maildev](https://maildev.github.io/maildev/) on the dev environment.
+
+| Interface | URL |
+|---|---|
+| Web UI | http://starter.lxd:1080 |
+| SMTP | `smtp://127.0.0.1:1025` |
+
 ## DataBase (MariaDB)
 
 You can access to the database:
@@ -122,6 +140,20 @@ For phpunit, you must install the following packages:
 * firefox
 
 You must install [composer](https://getcomposer.org/download/).
+
+## Crontab
+
+The crontab for the `www-data` user is defined in `website/config/crontab` and managed by `architecture/scripts/update-crontab.sh`.
+
+The following background tasks are scheduled:
+
+| Schedule | Command | Role |
+|---|---|---|
+| Every 5 min | `spipu:process:cron-manager rerun` | Re-run failed/pending process tasks |
+| Every 10 min | `spipu:process:cron-manager check-pid` | Clean up stale PIDs |
+| Daily at 2:00 | `spipu:process:cron-manager cleanup` | Purge old process logs |
+
+To add local overrides without modifying the tracked file, use `website/config/crontab.local`.
 
 ## Folders to exclude from PhpStorm
 
