@@ -25,7 +25,6 @@ class WebTestCase extends PantherTestCase
 
     protected string $testHost = 'starter.lxd';
 
-    protected string $testMode;
     protected bool $hideRealBadCredentialError = true;
     protected static ?PantherClient $clientCache = null;
 
@@ -51,9 +50,6 @@ class WebTestCase extends PantherTestCase
          $this->prepareGlobalDataPrimer(self::$kernel, static::getContainer());
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         if (self::$clientCache !== null) {

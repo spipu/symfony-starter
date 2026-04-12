@@ -13,9 +13,6 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 final class AppExtension extends Extension implements RolesHierarchyBundleInterface
 {
     /**
-     * @param array $configs
-     * @param ContainerBuilder $container
-     * @return void
      * @SuppressWarnings(PMD.UnusedFormalParameter)
      */
     public function load(array $configs, ContainerBuilder $container): void
