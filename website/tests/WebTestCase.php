@@ -2,11 +2,11 @@
 namespace App\Tests;
 
 use Exception;
+use Facebook\WebDriver\WebDriverDimension;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\Panther\Client;
 use Symfony\Component\Panther\Client as PantherClient;
 use Symfony\Component\Panther\PantherTestCase;
-use Facebook\WebDriver\WebDriverDimension;
 
 global $nbScreenShot;
 $nbScreenShot = 0;
@@ -31,12 +31,15 @@ class WebTestCase extends PantherTestCase
         $options = [
             'browser'           => self::FIREFOX,
             'external_base_uri' => 'https://' . $hostName,
-            'capabilities'      => ['acceptInsecureCerts' => true],
         ];
 
         $kernelOptions = [];
 
-        self::$clientCache = parent::createPantherClient($options, $kernelOptions);
+        $managerOptions = [
+            'capabilities' => ['acceptInsecureCerts' => true],
+        ];
+
+        self::$clientCache = parent::createPantherClient($options, $kernelOptions, $managerOptions);
         $size = new WebDriverDimension(1920,1080);
         self::$clientCache->manage()->window()->setSize($size);
 
@@ -83,7 +86,7 @@ class WebTestCase extends PantherTestCase
         $this->assertSamePageTitle('Starter', $client);
 
         $this->assertStringContainsStringIgnoringCase(
-            'You are on the Production environment.',
+            'You are on the Development environment.',
             $client->getCrawler()->text()
         );
 

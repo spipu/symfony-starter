@@ -26,9 +26,6 @@ export APP_ENCRYPTOR_KEY_PAIR
 APP_ENV="dev"
 export APP_ENV
 
-# Install the good driver
-./vendor/bin/bdi detect drivers
-
 # Increase max open file limit
 ulimit -n 8192
 
