@@ -1,4 +1,5 @@
 const Encore = require('@symfony/webpack-encore');
+const path = require('path');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -68,11 +69,11 @@ Encore
     //.enableIntegrityHashes(Encore.isProduction())
 
     // uncomment if you're having problems with a jQuery plugin
-    .autoProvideVariables({
-        $: 'jquery',
-        jQuery: 'jquery',
-        'window.jQuery': 'jquery',
-    })
+    //.autoProvideVariables({
+    //    $: 'jquery',
+    //    jQuery: 'jquery',
+    //    'window.jQuery': 'jquery',
+    //})
 
 
 // uncomment if you use API Platform Admin (composer req api-admin)
@@ -80,4 +81,13 @@ Encore
 //.addEntry('admin', './assets/js/admin.js')
 ;
 
-module.exports = Encore.getWebpackConfig();
+const config = Encore.getWebpackConfig();
+
+// Alias jQuery 4 vers le fichier CJS pour contourner le champ "exports"
+// qui bloque ProvidePlugin avec le chemin ./dist/jquery.js
+config.resolve.alias = {
+    ...config.resolve.alias,
+    'jquery$': path.resolve(__dirname, 'node_modules/jquery/dist/jquery.js'),
+};
+
+module.exports = config;

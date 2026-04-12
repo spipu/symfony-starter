@@ -2,9 +2,13 @@
 
 // Generic Libs
 import $ from 'jquery';
-import 'bootstrap/dist/js/bootstrap.bundle';
+import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.css';
+
+window.bootstrap = bootstrap;
+window.$ = $;
+window.jQuery = $;
 
 // Spipu UI
 import '../bundles/spipuui/css/spipu-ui.css'
@@ -22,5 +26,3 @@ import '../bundles/spipuui/js/spipu-loading-popup'
 // App Libs
 import './slim-selects'
 import '../scss/main.scss'
-
-window.$ = $;
