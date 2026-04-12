@@ -58,6 +58,7 @@ function remplaceVariablesInFile() {
     remplaceVariableInFile "$FILE" "DB_USER" "$DB_USER"
     remplaceVariableInFile "$FILE" "DB_PASS" "$DB_PASS"
     remplaceVariableInFile "$FILE" "DB_HOST" "$DB_HOST"
+    remplaceVariableInFile "$FILE" "DB_VERSION" "$DB_VERSION"
 
     # PHP
     remplaceVariableInFile "$FILE" "PHP_DISPLAY_ERRORS" "$PHP_DISPLAY_ERRORS"
@@ -66,6 +67,9 @@ function remplaceVariablesInFile() {
     remplaceVariableInFile "$FILE" "SSL_CERT_PUBLIC"  "$SSL_CERT_PUBLIC"
     remplaceVariableInFile "$FILE" "SSL_CERT_PRIVATE" "$SSL_CERT_PRIVATE"
     remplaceVariableInFile "$FILE" "SSL_CERT_CHAIN"   "$SSL_CERT_CHAIN"
+
+    # APACHE
+    remplaceVariableInFile "$FILE" "APACHE_PROTECT_ADMIN" "$APACHE_PROTECT_ADMIN"
 
     # Symfony
     remplaceVariableInFile "$FILE" "APP_SECRET" "$APP_SECRET"

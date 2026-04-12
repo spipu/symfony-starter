@@ -2,7 +2,7 @@
 
 showMessage " > MySQL - MariaDB Repo"
 
-curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | bash -s -- --mariadb-server-version="mariadb-10.4" > /dev/null
+curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | bash -s -- --mariadb-server-version="mariadb-10.11" > /dev/null
 
 apt-get -qq update > /dev/null
 
@@ -20,11 +20,11 @@ showMessage " > MySQL - Service"
 
 if [[ "$ENV_TYPE" = "docker" ]]; then
     mkdir -p /var/run/mysqld
-    chown mysql.root /var/run/mysqld
+    chown mysql:root /var/run/mysqld
 
     createFromTemplate "$CONFIG_FOLDER/mysql/mysql.sh" "/etc/init.d/mysql"
 
-    chown root.root /etc/init.d/mysql
+    chown root:root /etc/init.d/mysql
     chmod 755       /etc/init.d/mysql
 
     update-rc.d mysql defaults

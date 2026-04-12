@@ -1,7 +1,7 @@
 # Only For system parameters
 imports:
     - { resource: ../app_default_configuration.yaml }
-    - { resource: /etc/spipu/starter_symfony.yaml, ignore_errors: true  }
+    - { resource: /etc/starter/symfony.yaml, ignore_errors: true  }
 
 # Other parameters
 parameters:
