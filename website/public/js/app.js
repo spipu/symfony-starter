@@ -2,9 +2,8 @@
 
 // Generic Libs
 import $ from 'jquery';
-import 'bootstrap';
+import 'bootstrap/dist/js/bootstrap.bundle';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'popper.js';
 import '@fortawesome/fontawesome-free/css/all.css';
 
 // Spipu UI

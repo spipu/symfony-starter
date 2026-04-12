@@ -5,18 +5,18 @@
     "description": "Symfony Starter Project",
     "prefer-stable": true,
     "require": {
-        "php": ">=8.1",
+        "php": ">=8.3",
         "ext-ctype": "*",
         "ext-curl": "*",
-        "ext-fileinfo": "*",
         "ext-iconv": "*",
         "ext-json": "*",
         "ext-pdo": "*",
-        "doctrine/doctrine-bundle": "^2.11",
-        "doctrine/doctrine-migrations-bundle": "^3.3",
-        "doctrine/orm": "^2.17",
-        "phpdocumentor/reflection-docblock": "^5.3",
-        "phpstan/phpdoc-parser": "^1.24",
+        "ext-posix": "*",
+        "ext-sodium": "*",
+        "ext-zip": "*",
+        "doctrine/doctrine-bundle": "*",
+        "doctrine/doctrine-migrations-bundle": "*",
+        "doctrine/orm": "*",
         "predis/predis": "*",
         "spipu/configuration-bundle": "*",
         "spipu/core-bundle": "*",
@@ -36,11 +36,13 @@
         "symfony/intl": "*",
         "symfony/mailer": "*",
         "symfony/mailgun-mailer": "*",
+        "symfony/mime": "*",
         "symfony/monolog-bundle": "*",
         "symfony/notifier": "*",
         "symfony/process": "*",
         "symfony/property-access": "*",
         "symfony/property-info": "*",
+        "symfony/rate-limiter": "*",
         "symfony/runtime": "*",
         "symfony/security-bundle": "*",
         "symfony/serializer": "*",
@@ -50,27 +52,27 @@
         "symfony/uid": "*",
         "symfony/validator": "*",
         "symfony/web-link": "*",
-        "symfony/webpack-encore-bundle": "^2.0",
+        "symfony/webpack-encore-bundle": "*",
         "symfony/yaml": "*",
         "twig/extra-bundle": "^3.0",
         "twig/intl-extra": "^3.2",
         "twig/twig": "^3.0"
     },
     "require-dev": {
-        "dbrekelmans/bdi": "^1.0",
+        "cweagans/composer-patches": "^2.0",
+        "deptrac/deptrac": "*",
         "edgedesign/phpqa": "*",
         "php-parallel-lint/php-parallel-lint": "*",
         "pdepend/pdepend": "*",
         "phpmd/phpmd": "*",
         "phpmetrics/phpmetrics": "*",
-        "phpunit/phpunit": "^9.5",
+        "phpunit/phpunit": "^12.0",
         "squizlabs/php_codesniffer": "*",
-        "qossmic/deptrac-shim": "*",
         "symfony/browser-kit": "*",
         "symfony/css-selector": "*",
+        "symfony/panther": "*",
         "symfony/debug-bundle": "*",
         "symfony/maker-bundle": "*",
-        "symfony/panther": "*",
         "symfony/phpunit-bridge": "*",
         "symfony/stopwatch": "*",
         "symfony/var-dumper": "*",
@@ -80,27 +82,29 @@
         "optimize-autoloader": true,
         "sort-packages": true,
         "platform": {
-            "php": "8.1.2",
+            "php": "8.3.6",
             "ext-bcmath": "1",
             "ext-ctype": "1",
-            "ext-gd": "1",
-            "ext-spl": "1",
-            "ext-dom": "1",
-            "ext-simplexml": "1",
-            "ext-mcrypt": "1",
-            "ext-hash": "1",
             "ext-curl": "1",
+            "ext-dom": "1",
+            "ext-gd": "1",
+            "ext-hash": "1",
             "ext-iconv": "1",
             "ext-intl": "1",
-            "ext-xsl": "1",
             "ext-mbstring": "1",
             "ext-openssl": "1",
-            "ext-zip": "1",
             "ext-pdo_mysql": "1",
+            "ext-redis": "6.1",
+            "ext-simplexml": "1",
             "ext-soap": "1",
+            "ext-spl": "1",
+            "ext-xsl": "1",
+            "ext-zip": "1",
             "lib-libxml": "1"
         },
         "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "cweagans/composer-patches": true,
             "php-http/discovery": true,
             "symfony/flex": true,
             "symfony/runtime": true
@@ -129,13 +133,15 @@
         "symfony/polyfill-php74": "*",
         "symfony/polyfill-php80": "*",
         "symfony/polyfill-php81": "*",
+        "symfony/polyfill-php82": "*",
         "sebastian/phpcpd": "*",
         "phploc/phploc": "*"
     },
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "spipu:assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"
@@ -150,7 +156,12 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "6.4.*"
+            "require": "7.4.*"
+        },
+        "patches": {
+            "consolidation/robo": {
+                "Fix Symfony Console 7.4 Application::add() deprecation": "patches/robo-symfony-console-deprecation.patch"
+            }
         }
     }
 }

@@ -3,49 +3,62 @@ deptrac:
     - ./src
   layers:
     # MVC Layers
+    - name: MVC_Command
+      collectors:
+        - type: classLike
+          value: App\\Command\\.*
     - name: MVC_Controller
       collectors:
-        - type: className
-          regex: .*\\Controller\\.*
+        - type: classLike
+          value: App\\Controller\\.*
     - name: MVC_Entity
       collectors:
-        - type: className
-          regex: .*\\Entity\\.*
+        - type: classLike
+          value: App\\Entity\\.*
     - name: MVC_Fixture
       collectors:
-        - type: className
-          regex: .*\\Fixture\\.*
+        - type: classLike
+          value: App\\Fixture\\.*
     - name: MVC_Form
       collectors:
-        - type: className
-          regex: .*\\Form\\[^\\]*$
+        - type: classLike
+          value: App\\Form\\[^\\]*$
     - name: MVC_FormOptions
       collectors:
-        - type: className
-          regex: .*\\Form\\Options\\.*
+        - type: classLike
+          value: App\\Form\\Options\\.*
     - name: MVC_Repository
       collectors:
-        - type: className
-          regex: .*\\Repository\\.*
+        - type: classLike
+          value: App\\Repository\\.*
     - name: MVC_Service
       collectors:
-        - type: className
-          regex: .*\\Service\\.*
+        - type: classLike
+          value: App\\(Service)\\.*
+    - name: MVC_Step
+      collectors:
+        - type: classLike
+          value: App\\Step\\.*
     - name: MVC_Ui
       collectors:
-        - type: className
-          regex: .*\\Ui\\.*
+        - type: classLike
+          value: App\\Ui\\.*
     - name: MVC_Validator
       collectors:
-        - type: className
-          regex: .*\\Validator\\.*
+        - type: classLike
+          value: App\\Validator\\.*
     - name: MVC_Twig
       collectors:
-        - type: className
-          regex: .*\\Twig\\.*
+        - type: classLike
+          value: App\\Twig\\.*
 
   ruleset:
     # MVC
+    MVC_Command:
+      - MVC_Entity
+      - MVC_Repository
+      - MVC_Service
+      - MVC_FormOptions
     MVC_Controller:
       - MVC_Entity
       - MVC_Repository
@@ -72,13 +85,16 @@ deptrac:
       - MVC_Service
     MVC_Repository:
       - MVC_Entity
-      - MVC_Service
-      - MVC_FormOptions
     MVC_Service:
       - MVC_Entity
       - MVC_Repository
       - MVC_FormOptions
       - MVC_Form
+    MVC_Step:
+      - MVC_Service
+      - MVC_Entity
+      - MVC_Repository
+      - MVC_FormOptions
     MVC_Ui:
       - MVC_Entity
       - MVC_FormOptions

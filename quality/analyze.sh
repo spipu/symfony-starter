@@ -29,12 +29,12 @@ chmod +x "${BIN_FOLDER}/phploc.phar"
 ln -fs "${BIN_FOLDER}/phploc.phar" "${MAIN_FOLDER}/website/vendor/bin/phploc"
 
 # Configure PHPCS
-./vendor/bin/phpcs --config-set php_version 80102
+./vendor/bin/phpcs --config-set php_version 80306
 
 # Tests - PHPQA
 ./vendor/bin/phpqa \
     --analyzedDirs "src" \
-    --ignoredDirs "vendor,Tests" \
+    --ignoredDirs "vendor" \
     --tools "phpmetrics,phploc,pdepend,phpcs:0,phpmd:0,phpcpd:0,parallel-lint:0" \
     --config "./" \
     --buildDir "${LOG_FOLDER}/" \

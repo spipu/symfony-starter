@@ -29,8 +29,9 @@ class WebTestCase extends PantherTestCase
         $hostName = $this->testHost;
 
         $options = [
-            'browser'  => self::FIREFOX,
-            'hostname' => $hostName,
+            'browser'           => self::FIREFOX,
+            'external_base_uri' => 'https://' . $hostName,
+            'capabilities'      => ['acceptInsecureCerts' => true],
         ];
 
         $kernelOptions = [];
@@ -47,7 +48,10 @@ class WebTestCase extends PantherTestCase
      */
     public function tearDown(): void
     {
-        self::stopWebServer();
+        if (self::$clientCache !== null) {
+            self::$clientCache->quit();
+            self::$clientCache = null;
+        }
     }
 
     protected static function getKernelClass(): string
