@@ -2,7 +2,7 @@
 
 ## Branches
 
-The **master** branch is the one used to deliver the application on **production**.
+The **main** branch is the one used to deliver the application on **production**.
 
 The **preprod** branch is the one used to deliver the application on **preproduction**.
 
@@ -10,13 +10,13 @@ Any other branch must be prefixed with the jira ticket number. Example: **spar-4
 
 ## Workflow
 
-When you create a new branch, do it always from **master**.
+When you create a new branch, do it always from **main**.
 
-When you need to rebase your branch, do it always from **master**.
+When you need to rebase your branch, do it always from **main**.
 
 When you have finished your development, you have to:
 
-* Rebase the **master** branch into your branch (only if needed and if your branch has never been merged).
+* Rebase the **main** branch into your branch (only if needed and if your branch has never been merged).
 * Create a bitbucket **Pull Request** from your branch to **preprod**.
 
 When this **Pull Request** is validated, it will :
@@ -27,12 +27,12 @@ When this **Pull Request** is validated, it will :
 
 When your development has been validated on the **preproduction**, you have to:
 
-* Merge the **master** branch into your branch (only if needed).
-* Create a bitbucket **Pull Request** from your branch to **master**.
+* Merge the **main** branch into your branch (only if needed).
+* Create a bitbucket **Pull Request** from your branch to **main**.
 
 When this **Pull Request** is validated, it will :
 
-* Merge your branch into **master**.
-* Deliver the **master** branch into the **production** environment.
+* Merge your branch into **main**.
+* Deliver the **main** branch into the **production** environment.
 * You **must** delete your branch at this time.
  

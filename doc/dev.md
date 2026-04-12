@@ -72,7 +72,7 @@ sudo -u www-data bin/console
 
 **warning** always use the ̀`www-data` user to execute the symfony console
 
-## DataBase (MySQL)
+## DataBase (MariaDB)
 
 You can access to the database:
 
@@ -95,6 +95,9 @@ The tool **phpqa** is used to manage the following:
 * phpmd
 * phpcpd
 * phploc
+* phpmetrics
+* pdepend
+* parallel-lint
 
 You **must** execute the tools from your host (not from your dev env) :
 
@@ -111,17 +114,11 @@ You **must** execute the tools from your host (not from your dev env) :
 
 For phpunit, you must install the following packages:
 
-* php-cli
-* php-common
-* php-curl
-* php-gd
-* php-intl
-* php-mbstring
-* php-soap
+* php8.3-cli
+* php8.3-curl
+* php-xdebug
+* php-pdo
 * php-sqlite3
-* php-ssh2
-* php-zip
-* php-xml
 * firefox
 
 You must install [composer](https://getcomposer.org/download/).
@@ -139,7 +136,7 @@ after a pull / rebase / ... , you must update the application :
 
 ```bash
 ssh delivery@starter.lxd
-/var/www/starter/architecture/scripts/install.sh
+~/install.sh
 ```
 
 ## Front - SASS - Scss
@@ -147,7 +144,7 @@ ssh delivery@starter.lxd
 To use it:
 
 ```bash
-ssh delivery@bonus.lxc
+ssh delivery@starter.lxd
 /var/www/starter/architecture/scripts/watch-front.sh
 ```
 
