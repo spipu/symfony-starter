@@ -75,6 +75,7 @@ Webpack Encore with Stimulus.js (3.0), **Bootstrap 5.3**, **jQuery 4.0**, **Font
 
 **Notes importantes :**
 - `window.bootstrap`, `window.$` et `window.jQuery` sont exposés globalement dans `app.js` — requis par les JS des bundles Spipu
+- `defer: false` dans `webpack_encore.yaml` est **obligatoire** — les bundles Spipu injectent des scripts inline dans le HTML qui utilisent `translator`, `$`, `bootstrap` comme variables globales ; ces scripts s'exécutent avant un script différé, ce qui cause `ReferenceError: translator is not defined`
 - jQuery 4 nécessite un alias webpack dans `webpack.config.js` pour contourner le champ `exports` incompatible avec ProvidePlugin : `'jquery$': path.resolve(__dirname, 'node_modules/jquery/dist/jquery.js')`
 - `bootstrap/dist/js/bootstrap.bundle` inclut Popper 2 — pas besoin d'installer `@popperjs/core` séparément
 
