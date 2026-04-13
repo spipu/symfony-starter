@@ -6,6 +6,7 @@
 parameters:
     # HTTPS configuration for CLI
     router.request_context.scheme: 'https'
+    router.request_context.host: '%ENV_HOST%'
     asset.request_context.secure: true
     # Encryptor Configuration
     spipu.core.encryptor.key_pair: "%APP_SETTINGS_APP_ENCRYPTOR_KEY_PAIR%"
@@ -26,7 +27,6 @@ services:
 
     app.session.redis.client:
         class: 'Predis\Client'
-        public: true
         arguments:
             - "%APP_SETTINGS_REDIS_SESSION_URL%"
 

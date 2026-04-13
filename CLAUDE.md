@@ -78,6 +78,14 @@ Webpack Encore with Stimulus.js (3.0), **Bootstrap 5.3**, **jQuery 4.0**, **Font
 - jQuery 4 nécessite un alias webpack dans `webpack.config.js` pour contourner le champ `exports` incompatible avec ProvidePlugin : `'jquery$': path.resolve(__dirname, 'node_modules/jquery/dist/jquery.js')`
 - `bootstrap/dist/js/bootstrap.bundle` inclut Popper 2 — pas besoin d'installer `@popperjs/core` séparément
 
+### Configuration System
+
+Le projet **n'utilise pas `.env`** pour la configuration de production. À la place :
+- `config/app_default_configuration.yaml` — valeurs par défaut (SQLite, secrets temporaires, filesystem cache). Sert de repli pour les tests et le dev local.
+- `/etc/starter/symfony.yaml` — fichier **hors dépôt**, déployé par l'hébergeur, contient les vraies valeurs (DB, Redis, secrets). Chargé via `imports` dans `framework.yaml` avec `ignore_errors: true`.
+
+Tous les paramètres suivent la convention `APP_SETTINGS_*` et sont référencés dans les configs Symfony via `%APP_SETTINGS_XXX%`.
+
 ### Database & Cache
 - **Production**: MariaDB 10.11+, Redis for sessions and cache (key prefix `spipu_`)
 - **Tests**: SQLite (`var-test/test.sqlite`)
