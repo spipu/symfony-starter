@@ -2,7 +2,7 @@
 
 ## Description
 
-Template to start a new Symfony 6.4 + PHP 8.2 project
+Template to start a new Symfony 7.4 + PHP 8.3 project
 
 ## License
 

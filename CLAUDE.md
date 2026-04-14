@@ -112,7 +112,7 @@ sudo apt-get install php8.3-curl php8.3-cli php-xdebug php-pdo php-sqlite3
 
 ## Dev Environment Details
 - Public: `https://starter.lxd/`
-- Admin: `https://starter.lxd/admin/` (login: `admin` / `password`)
+- Admin: `https://starter.lxd/admin/` (login: `spipu` / `password`)
 - SSH users: `root` (service control only), `delivery` (composer, console)
 - **Always use `www-data` user** when running `bin/console` in the dev environment
 - Quality tools must run from the **host machine**, not inside the dev environment

@@ -11,7 +11,7 @@ You can use LXD, or Docker technology.
 
 Admin Account:
 
-* email : `admin`
+* email : `spipu`
 * password: `password`
 
 ## How to create the environment
