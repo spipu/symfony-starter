@@ -8,4 +8,4 @@ Template to start a new Symfony 7.4 + PHP 8.3 project
 
 This program is distributed under the MIT License. For more information see the [./LICENSE.md](./LICENSE.md) file.
 
-Copyright 2024 Laurent Minguet
+Copyright 2026 Laurent Minguet

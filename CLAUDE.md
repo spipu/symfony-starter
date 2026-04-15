@@ -128,7 +128,7 @@ sudo apt-get install php8.3-curl php8.3-cli php-xdebug php-pdo php-sqlite3
 - Use `#[AsCommand(...)]` attribute on console commands
 - All constants must have explicit visibility
 - No `A|B` union types unless imposed by external contract — use `?type` or `mixed`
-- `MicroKernelTrait::configureContainer()` est `private` en Symfony 7.4 — les sous-classes ne peuvent pas appeler `parent::configureContainer()`. Utiliser `build(ContainerBuilder $container)` à la place dans les Kernels de test.
+- `MicroKernelTrait::configureContainer()` est `private` en Symfony 7.4. Pour permettre à un Kernel de test d'appeler `parent::configureContainer()`, le Kernel applicatif (`src/Kernel.php`) doit l'override explicitement en `protected` (et ré-importer les YAML dedans). Ne pas utiliser `build()` pour override des paramètres : il s'exécute **avant** le chargement des YAML, donc tout `parameterBag->set()` y est silencieusement écrasé par les valeurs des YAML chargées ensuite (ex. `APP_SETTINGS_APP_CODE='dev'` écrasé par la valeur `'prod'` de `app_default_configuration.yaml`).
 
 ### Frontend Libraries
 - **Bootstrap 5.3** — use `data-bs-*` attributes, `me-/ms-/pe-/ps-*` spacing, `text-start/end`, `fw-bold`, `mb-3` (not `form-group`), `w-100` (not `btn-block`), `form-select` for selects, `text-bg-*` badges. Native `bootstrap.Modal` API (not jQuery `.modal()`)

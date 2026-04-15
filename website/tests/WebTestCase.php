@@ -33,8 +33,8 @@ class WebTestCase extends PantherTestCase
         $hostName = $this->testHost;
 
         $options = [
-            'browser'           => self::FIREFOX,
-            'external_base_uri' => 'https://' . $hostName,
+            'browser'  => self::FIREFOX,
+            'hostname' => $hostName,
         ];
 
         $kernelOptions = [];
@@ -87,7 +87,7 @@ class WebTestCase extends PantherTestCase
         $this->assertSamePageTitle('Starter', $client);
 
         $this->assertStringContainsStringIgnoringCase(
-            'You are on the Development environment.',
+            'You are on the Production environment.',
             $client->getCrawler()->text()
         );
 
