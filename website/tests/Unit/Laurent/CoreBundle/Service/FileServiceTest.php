@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Service;
+namespace App\Tests\Unit\Laurent\CoreBundle\Service;
 
 use Laurent\CoreBundle\Service\FileService;
 use PHPUnit\Framework\TestCase;
