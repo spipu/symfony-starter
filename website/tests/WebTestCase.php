@@ -43,7 +43,9 @@ class WebTestCase extends PantherTestCase
         $kernelOptions = [];
 
         $managerOptions = [
-            'capabilities' => ['acceptInsecureCerts' => true],
+            'capabilities'             => ['acceptInsecureCerts' => true],
+            'connection_timeout_in_ms' => 5000,
+            'request_timeout_in_ms'    => 5000,
         ];
 
         self::$clientCache = parent::createPantherClient($options, $kernelOptions, $managerOptions);
