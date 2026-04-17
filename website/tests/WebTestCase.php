@@ -21,7 +21,7 @@ class WebTestCase extends PantherTestCase
     public const ADMIN_PASS = 'password';
 
     protected array $testModes = [
-        'back-office' => 'starter.lxd',
+        'back-office' => '127.0.0.1',
     ];
 
     protected string $testMode;
@@ -44,8 +44,8 @@ class WebTestCase extends PantherTestCase
 
         $managerOptions = [
             'capabilities'             => ['acceptInsecureCerts' => true],
-            'connection_timeout_in_ms' => 5000,
-            'request_timeout_in_ms'    => 5000,
+            'connection_timeout_in_ms' => 10000,
+            'request_timeout_in_ms'    => 10000,
         ];
 
         self::$clientCache = parent::createPantherClient($options, $kernelOptions, $managerOptions);
