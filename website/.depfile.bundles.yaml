@@ -1,0 +1,23 @@
+deptrac:
+  paths:
+      - ./src
+  layers:
+    # Bundle Layer - Main
+    - name: Laurent_Bundle_Core
+      collectors:
+        - type: classLike
+          value: Laurent\\CoreBundle\\.*
+
+    # User Interface Layers
+    - name: Laurent_Main_BackOffice
+      collectors:
+        - type: classLike
+          value: Laurent\\BackOfficeBundle\\.*
+
+  ruleset:
+    # Main Bundles
+    Laurent_Bundle_Core: ~
+
+    # User Interface
+    Laurent_Main_BackOffice:
+      - Laurent_Bundle_Core

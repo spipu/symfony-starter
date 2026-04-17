@@ -18,4 +18,6 @@ return [
     Spipu\ConfigurationBundle\SpipuConfigurationBundle::class => ['all' => true],
     Spipu\ProcessBundle\SpipuProcessBundle::class => ['all' => true],
     Spipu\DashboardBundle\SpipuDashboardBundle::class => ['all' => true],
+    Laurent\CoreBundle\LaurentCoreBundle::class => ['all' => true],
+    Laurent\BackOfficeBundle\LaurentBackOfficeBundle::class => ['all' => true],
 ];

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace Laurent\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Spipu\UserBundle\Entity\AbstractUser;

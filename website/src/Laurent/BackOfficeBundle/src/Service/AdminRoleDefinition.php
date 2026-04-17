@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Service;
+namespace Laurent\BackOfficeBundle\Service;
 
 use Spipu\CoreBundle\Entity\Role\Item;
 use Spipu\CoreBundle\Service\RoleDefinitionInterface;
 
-class RoleDefinition implements RoleDefinitionInterface
+class AdminRoleDefinition implements RoleDefinitionInterface
 {
     public function buildDefinition(): void
     {

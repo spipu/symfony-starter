@@ -1,0 +1,36 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # Generic Declaration
+    Laurent\BackOfficeBundle\:
+        resource: '../src/*'
+        exclude: '../src/{Entity,Tests,LaurentBackOfficeBundle.php}'
+
+    # BackOffice - Role Definition
+    Laurent\BackOfficeBundle\Service\AdminRoleDefinition:
+        public: true
+        tags: ['spipu.user.role']
+
+    # BackOffice - Menu Definition
+    spipu.ui.service.menu_definition:
+        class: 'Laurent\BackOfficeBundle\Service\MenuDefinition'
+        autowire: true
+
+    # Admin - User Mail Configuration
+    Spipu\UserBundle\Service\MailConfigurationInterface:
+        class: 'Laurent\BackOfficeBundle\Service\MailConfiguration'
+        arguments:
+            - '@Spipu\ConfigurationBundle\Service\ConfigurationManager'
+
+    # Spipu User Bundle Configuration
+    Spipu\UserBundle\Service\ModuleConfigurationInterface:
+        class: Spipu\UserBundle\Service\ModuleConfiguration
+        public: true
+        autowire: true
+        arguments:
+            $entityName:           '\Laurent\CoreBundle\Entity\AdminUser'
+            $entityClassName:      '\Laurent\CoreBundle\Entity\AdminUser'
+            $allowAccountCreation: false
+            $allowPasswordRecovery: true

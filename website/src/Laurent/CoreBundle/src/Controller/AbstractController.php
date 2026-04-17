@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace Laurent\CoreBundle\Controller;
 
-use App\Entity\AdminUser;
+use Laurent\CoreBundle\Entity\AdminUser;
 use Spipu\CoreBundle\Controller\AbstractController as SpipuAbstractController;
 
 /**

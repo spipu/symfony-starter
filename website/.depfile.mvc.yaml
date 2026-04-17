@@ -6,51 +6,55 @@ deptrac:
     - name: MVC_Command
       collectors:
         - type: classLike
-          value: App\\Command\\.*
+          value: .*\\Command\\.*
     - name: MVC_Controller
       collectors:
         - type: classLike
-          value: App\\Controller\\.*
+          value: .*\\Controller\\.*
     - name: MVC_Entity
       collectors:
         - type: classLike
-          value: App\\Entity\\.*
+          value: .*\\Entity\\.*
+    - name: MVC_EventSubscriber
+      collectors:
+        - type: classLike
+          value: .*\\EventSubscriber\\.*
     - name: MVC_Fixture
       collectors:
         - type: classLike
-          value: App\\Fixture\\.*
+          value: .*\\Fixture\\.*
     - name: MVC_Form
       collectors:
         - type: classLike
-          value: App\\Form\\[^\\]*$
+          value: .*\\Form\\[^\\]*$
     - name: MVC_FormOptions
       collectors:
         - type: classLike
-          value: App\\Form\\Options\\.*
+          value: .*\\Form\\Options\\.*
     - name: MVC_Repository
       collectors:
         - type: classLike
-          value: App\\Repository\\.*
+          value: .*\\Repository\\.*
     - name: MVC_Service
       collectors:
         - type: classLike
-          value: App\\(Service)\\.*
+          value: .*\\Service\\.*
     - name: MVC_Step
       collectors:
         - type: classLike
-          value: App\\Step\\.*
-    - name: MVC_Ui
-      collectors:
-        - type: classLike
-          value: App\\Ui\\.*
-    - name: MVC_Validator
-      collectors:
-        - type: classLike
-          value: App\\Validator\\.*
+          value: .*\\Step\\.*
     - name: MVC_Twig
       collectors:
         - type: classLike
-          value: App\\Twig\\.*
+          value: .*\\Twig\\.*
+    - name: MVC_Ui
+      collectors:
+        - type: classLike
+          value: .*Bundle\\Ui\\.*
+    - name: MVC_Validator
+      collectors:
+        - type: classLike
+          value: .*\\Validator\\.*
 
   ruleset:
     # MVC
@@ -70,6 +74,10 @@ deptrac:
     MVC_Entity:
       - MVC_Validator
       - MVC_FormOptions
+    MVC_EventSubscriber:
+      - MVC_Entity
+      - MVC_Repository
+      - MVC_Service
     MVC_Fixture:
       - MVC_Entity
       - MVC_Repository

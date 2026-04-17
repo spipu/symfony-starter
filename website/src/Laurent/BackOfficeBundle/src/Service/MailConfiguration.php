@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Service;
+namespace Laurent\BackOfficeBundle\Service;
 
 use Spipu\ConfigurationBundle\Service\ConfigurationManager;
 use Spipu\UserBundle\Service\MailConfigurationInterface;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Service;
 
-use App\Service\HostService;
+use Laurent\CoreBundle\Service\HostService;
 use PHPUnit\Framework\TestCase;
 
 class HostServiceTest extends TestCase

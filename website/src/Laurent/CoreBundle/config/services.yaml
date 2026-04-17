@@ -1,0 +1,29 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # Generic Declaration
+    Laurent\CoreBundle\:
+        resource: '../src/*'
+        exclude: '../src/{Entity,Tests,LaurentCoreBundle.php}'
+
+    # Core Twig Ui Extension
+    Laurent\CoreBundle\Twig\UiExtension:
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+
+    # Host Service
+    Laurent\CoreBundle\Service\HostService:
+        arguments:
+            $host: '%ENV_HOST%'
+
+    # Redis Client
+    Laurent\CoreBundle\Service\RedisClient:
+        arguments:
+            $redisDsn: '%APP_SETTINGS_REDIS_CACHE_URL%'
+
+    # Spipu Core Environment
+    Spipu\CoreBundle\Service\Environment:
+        arguments:
+            $currentCode: '%APP_SETTINGS_APP_CODE%'

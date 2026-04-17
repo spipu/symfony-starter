@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Service;
 
-use App\Service\FileService;
+use Laurent\CoreBundle\Service\FileService;
 use PHPUnit\Framework\TestCase;
 
 class FileServiceTest extends TestCase

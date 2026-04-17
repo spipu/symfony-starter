@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Service;
+namespace Laurent\BackOfficeBundle\Service;
 
 use Spipu\ConfigurationBundle\Service\ConfigurationManager;
 use Spipu\CoreBundle\Service\Environment;
@@ -28,12 +28,12 @@ class MenuDefinition implements DefinitionInterface // phpcs:disable Generic.Fil
 
     private function build(): void
     {
-        $this->mainItem = new Item($this->configurationManager->get('app.website.name'), '', 'app_home');
+        $this->mainItem = new Item($this->configurationManager->get('app.website.name'), '', 'admin_home');
 
         $this->mainItem
             ->setIcon('wrench', $this->environment->getCurrentColor(), $this->environment->getCurrentName())
             ->setCssClass('navbar-dark bg-menu-app')
-            ->addChild('spipu.ui.page.home', 'app-home', 'app_home')
+            ->addChild('spipu.ui.page.home', 'app-home', 'admin_home')
                 ->setIcon('house')
                 ->setACL(true)
                 ->getParentItem()

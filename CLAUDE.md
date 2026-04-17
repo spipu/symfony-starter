@@ -23,11 +23,24 @@ yarn build      # Production build with minification
 ./quality/phpunit.sh --coverage  # Run with coverage (opens Firefox report)
 ```
 
-### Code Quality (run from repo root)
+**IMPORTANT — Claude ne lance JAMAIS `phpunit.sh`** : le script écrit dans `/etc/hosts` via `sudo` et doit rester à la main de l'utilisateur. Pour vérifier la santé du code, utilise `cache:warmup`, `debug:container`, `debug:router` en SSH sur la LXD. **Quand le code est prêt, dire explicitement à l'utilisateur** qu'il peut lancer `./quality/phpunit.sh` — ne pas l'attendre silencieusement.
+
+**Browser de test** : par défaut Firefox headless. Si Claude est redémarré avec `--chrome` (ou si l'utilisateur mentionne Chrome), basculer les tests Panther sur Chrome (voir `tests/WebTestCase.php` — `'browser' => self::FIREFOX` → `self::CHROME`).
+
+### Code Quality (run from repo root) — obligatoire après TOUT développement
 ```bash
+./quality/deptrac.sh   # 3 fichiers deptrac : .global, .mvc, .bundles
 ./quality/analyze.sh   # phpcs + phpmd + phpcpd + phploc + phpmetrics + pdepend
-./quality/deptrac.sh   # Architecture layer dependency validation
 ```
+
+Claude **doit lancer deptrac.sh et analyze.sh** systématiquement après chaque dev (ils ne demandent pas sudo et s'exécutent côté hôte). Régler tout violation avant d'annoncer la tâche terminée.
+
+### Composer (toujours depuis la LXD)
+```bash
+ssh delivery@starter.lxd "cd /var/www/starter/website && composer <command>"
+```
+
+Ne **jamais** lancer composer depuis l'hôte — versions PHP/extensions peuvent différer, et le `composer.lock` doit rester cohérent avec l'environnement runtime.
 
 ### Symfony Console (on dev env)
 ```bash
@@ -35,6 +48,11 @@ yarn build      # Production build with minification
 ssh delivery@starter.lxd
 cd /var/www/starter/website/
 sudo -u www-data bin/console <command>
+```
+
+Pour les vérifs one-shot depuis l'hôte (sans session interactive) :
+```bash
+ssh delivery@starter.lxd "cd /var/www/starter/website && sudo -u www-data bin/console <cmd>"
 ```
 
 ### Dev Environment
@@ -52,23 +70,62 @@ ssh delivery@starter.lxd
 
 ## Architecture
 
-### Spipu Bundle Stack
-The application is built around custom Spipu bundles (all in `vendor/spipu/`):
-- **SpipuCoreBundle** — encryption, core utilities
-- **SpipuUiBundle** — UI components, menu system, grid/filter system
+### Spipu Bundle Stack (vendor)
+Bundles tiers installés via composer dans `vendor/spipu/` :
+- **SpipuCoreBundle** — encryption, core utilities, `AbstractBundle`, `Environment`
+- **SpipuUiBundle** — UI components, menu system (via `spipu.ui.service.menu_definition`), grid/filter
 - **SpipuUserBundle** — entity-based authentication with remember-me, role management
 - **SpipuConfigurationBundle** — runtime configuration management
 - **SpipuProcessBundle** — background process/job execution
 - **SpipuDashboardBundle** — admin dashboard widgets
 
-Application code in `src/` primarily wires these bundles together via:
-- `src/Service/MenuDefinition.php` — defines admin menu structure
-- `src/Service/RoleDefinition.php` — registers application roles
-- `src/Service/MailConfiguration.php` — mailer setup
-- `src/Entity/AdminUser.php` — extends SpipuUserBundle's user entity
+### Bundles applicatifs (`src/Laurent/`)
+Le code applicatif est découpé en bundles sous le vendor `Laurent`. Voir
+`doc/bundles.md` pour le détail.
+
+- **`Laurent\CoreBundle`** (`src/Laurent/CoreBundle/`) — socle bas niveau sans
+  dépendance inter-bundle : `AdminUser` entity, `FileService`, `HostService`,
+  `RedisClient`, `UiExtension` (Twig), `AbstractController`.
+  Templates : `@LaurentCore/translator.html.twig`, `@LaurentCore/grid/…`.
+- **`Laurent\BackOfficeBundle`** (`src/Laurent/BackOfficeBundle/`) — UI admin
+  qui dépend de Core : `MainController` (route `admin_home` = `/`),
+  `MenuDefinition`, `AdminRoleDefinition` (tag `spipu.user.role`),
+  `MailConfiguration` (implémente `MailConfigurationInterface`).
+  La classe de bundle surcharge `getRolesHierarchy()`.
+
+**`src/App/`** ne contient plus que le `Kernel.php` et les `Fixture/` — les
+entités, services et contrôleurs sont dans les bundles Laurent.
+
+### Templates — règle cruciale
+`templates/base.html.twig` et `templates/base_email.html.twig` **doivent rester
+à la racine** (pas dans un bundle), car les templates Spipu User
+(`@SpipuUser/login.html.twig`, `@SpipuUser/profile/*.html.twig`) font
+`{% extends 'base.html.twig' %}` sans préfixe. Twig les résout via le
+`twig.default_path` (`templates/`). Déplacer `base.html.twig` casse le login
+avec `Twig\Error\LoaderError`.
+
+Les templates spécifiques à un bundle (home admin, etc.) utilisent le
+namespace Twig du bundle : `@LaurentBackOffice/main/home.html.twig`.
 
 ### Architectural Layers (enforced by Deptrac)
-`.depfile.mvc.yaml` validates MVC separation. Layers: Command, Controller, Entity, Fixture, Form, Repository, Service, Step, Twig, Ui, Validator. Uses new deptrac format (`type: classLike`). Violations will fail `./quality/deptrac.sh`.
+Trois fichiers deptrac complémentaires (pattern mind) :
+- `.depfile.global.yaml` — couches globales `App` → `Laurent`
+- `.depfile.mvc.yaml` — couches MVC catch-all (`.*\\Service\\.*`, etc.)
+- `.depfile.bundles.yaml` — dépendances inter-bundles Laurent
+
+Règles pour nouveaux bundles métier : ne jamais dépendre de `BackOfficeBundle`.
+`BackOfficeBundle` est la couche UI — elle peut dépendre de tous les autres.
+
+### Enregistrement d'un bundle Laurent
+1. Classe `Laurent\XxxBundle\LaurentXxxBundle extends Spipu\CoreBundle\AbstractBundle`
+   — `AbstractBundle::loadExtension()` importe automatiquement
+   `../config/services.yaml` relatif au dossier `src/`.
+2. PSR-4 dans `composer.json` : `"Laurent\\XxxBundle\\": "src/Laurent/XxxBundle/src/"`
+3. Enregistrement dans `config/bundles.php`
+4. Routes du bundle dans `config/routes.yaml` importées depuis
+   `website/config/routes.yaml` via `@LaurentXxxBundle/config/routes.yaml`
+5. `ide-twig.json` si le bundle a des templates
+6. Couches + règles dans `.depfile.bundles.yaml`
 
 ### Frontend
 Webpack Encore with Stimulus.js (3.0), **Bootstrap 5.3**, **jQuery 4.0**, **FontAwesome 7**, SASS/SCSS support. Entry point: `public/js/app.js`.

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Twig;
+namespace Laurent\CoreBundle\Twig;
 
-use App\Service\FileService;
-use App\Service\HostService;
+use Laurent\CoreBundle\Service\FileService;
+use Laurent\CoreBundle\Service\HostService;
 use Spipu\CoreBundle\Service\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;

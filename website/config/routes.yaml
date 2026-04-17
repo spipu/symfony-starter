@@ -1,8 +1,5 @@
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+laurent_back_office:
+    resource: '@LaurentBackOfficeBundle/config/routes.yaml'
 
 spipu_user:
     resource: '@SpipuUserBundle/config/routes.yaml'

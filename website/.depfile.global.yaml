@@ -1,0 +1,21 @@
+deptrac:
+  paths:
+      - ./src
+  layers:
+    # APP Layer
+    - name: App
+      collectors:
+        - type: classLike
+          value: ^App\\.*
+
+    # Laurent Vendor Layer
+    - name: Laurent
+      collectors:
+        - type: classLike
+          value: ^Laurent\\.*
+
+  ruleset:
+    # Global
+    App:
+      - Laurent
+    Laurent: ~

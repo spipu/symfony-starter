@@ -5,3 +5,4 @@
  * [Configuration](./configuration.md)
  * [Testing](./testing.md)
  * [Frontend](./frontend.md)
+ * [Bundles applicatifs](./bundles.md) — découpage Laurent\Core / Laurent\BackOffice

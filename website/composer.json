@@ -111,7 +111,9 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/App/",
+            "Laurent\\BackOfficeBundle\\": "src/Laurent/BackOfficeBundle/src/",
+            "Laurent\\CoreBundle\\":       "src/Laurent/CoreBundle/src/"
         }
     },
     "autoload-dev": {

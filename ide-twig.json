@@ -1,8 +1,32 @@
 {
   "namespaces": [
     {
-      "namespace": "",
-      "path": "website/templates"
+      "namespace": "LaurentBackOffice",
+      "path": "website/src/Laurent/BackOfficeBundle/templates"
+    },
+    {
+      "namespace": "LaurentCore",
+      "path": "website/src/Laurent/CoreBundle/templates"
+    },
+    {
+      "namespace": "SpipuConfiguration",
+      "path": "website/vendor/spipu/configuration-bundle/templates"
+    },
+    {
+      "namespace": "SpipuDashboard",
+      "path": "website/vendor/spipu/dashboard-bundle/templates"
+    },
+    {
+      "namespace": "SpipuProcess",
+      "path": "website/vendor/spipu/process-bundle/templates"
+    },
+    {
+      "namespace": "SpipuUi",
+      "path": "website/vendor/spipu/ui-bundle/templates"
+    },
+    {
+      "namespace": "SpipuUser",
+      "path": "website/vendor/spipu/user-bundle/templates"
     }
   ]
 }
