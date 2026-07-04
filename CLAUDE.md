@@ -10,12 +10,14 @@ The main application lives in `website/`. All quality/test tools run from the **
 
 ## Commands
 
-### Assets (run from `website/`)
+### Assets (toujours depuis la LXD)
 ```bash
-yarn dev        # Build assets for development
-yarn watch      # Watch mode for continuous rebuilding
-yarn build      # Production build with minification
+ssh delivery@starter.lxd "cd /var/www/starter/website && npm run dev"    # Build assets for development
+ssh delivery@starter.lxd "cd /var/www/starter/website && npm run watch"  # Watch mode for continuous rebuilding
+ssh delivery@starter.lxd "cd /var/www/starter/website && npm run build"  # Production build with minification
 ```
+
+Ne **jamais** lancer npm depuis l'hôte — comme composer, les commandes npm s'exécutent dans la LXD (version Node de référence, lockfile cohérent avec le runtime).
 
 ### Tests (run from repo root)
 ```bash
@@ -128,12 +130,12 @@ Règles pour nouveaux bundles métier : ne jamais dépendre de `BackOfficeBundle
 6. Couches + règles dans `.depfile.bundles.yaml`
 
 ### Frontend
-Webpack Encore with Stimulus.js (3.0), **Bootstrap 5.3**, **jQuery 4.0**, **FontAwesome 7**, SASS/SCSS support. Entry point: `public/js/app.js`.
+Webpack Encore 7 (ESM-only : config dans `webpack.config.mjs`, `getWebpackConfig()` asynchrone) avec Babel 8, **Bootstrap 5.3**, **jQuery 4.0**, **FontAwesome 7**, SASS/SCSS support. Entry point: `public/js/app.js`. Polyfills via `babel-plugin-polyfill-corejs3` (`usage-global`) — Babel 8 a supprimé `useBuiltIns`/`corejs` de preset-env.
 
 **Notes importantes :**
 - `window.bootstrap`, `window.$` et `window.jQuery` sont exposés globalement dans `app.js` — requis par les JS des bundles Spipu
 - `defer: false` dans `webpack_encore.yaml` est **obligatoire** — les bundles Spipu injectent des scripts inline dans le HTML qui utilisent `translator`, `$`, `bootstrap` comme variables globales ; ces scripts s'exécutent avant un script différé, ce qui cause `ReferenceError: translator is not defined`
-- jQuery 4 nécessite un alias webpack dans `webpack.config.js` pour contourner le champ `exports` incompatible avec ProvidePlugin : `'jquery$': path.resolve(__dirname, 'node_modules/jquery/dist/jquery.js')`
+- jQuery 4 nécessite un alias webpack dans `webpack.config.mjs` pour contourner le champ `exports` incompatible avec ProvidePlugin : `'jquery$': path.resolve(import.meta.dirname, 'node_modules/jquery/dist/jquery.js')`
 - `bootstrap/dist/js/bootstrap.bundle` inclut Popper 2 — pas besoin d'installer `@popperjs/core` séparément
 
 ### Configuration System
@@ -168,8 +170,7 @@ sudo apt-get install php8.3-curl php8.3-cli php-xdebug php-pdo php-sqlite3
 - `website/config/packages/` — Bundle-specific Symfony config
 
 ## Dev Environment Details
-- Public: `https://starter.lxd/`
-- Admin: `https://starter.lxd/admin/` (login: `spipu` / `password`)
+- Admin: `https://starter.lxd/` (route `admin_home` = `/`, login: `spipu` / `password` sur `/login`)
 - SSH users: `root` (service control only), `delivery` (composer, console)
 - **Always use `www-data` user** when running `bin/console` in the dev environment
 - Quality tools must run from the **host machine**, not inside the dev environment
@@ -189,7 +190,8 @@ sudo apt-get install php8.3-curl php8.3-cli php-xdebug php-pdo php-sqlite3
 
 ### Frontend Libraries
 - **Bootstrap 5.3** — use `data-bs-*` attributes, `me-/ms-/pe-/ps-*` spacing, `text-start/end`, `fw-bold`, `mb-3` (not `form-group`), `w-100` (not `btn-block`), `form-select` for selects, `text-bg-*` badges. Native `bootstrap.Modal` API (not jQuery `.modal()`)
-- **jQuery 4.0** — no `$.proxy()`, `$.grep()` ; use `.bind()` et `Array.filter()`
+- **jQuery 4.0** — no `$.proxy()`, `$.grep()` ; use `.bind()` et `Array.filter()`. Les raccourcis d'événements (`.change()`, `.click()`…) sont supprimés → utiliser `.on('change', …)`
+- **slim-select 4** — `searchPlaceholder`/`searchText` vont sous `settings:` (pas au niveau racine), CSS importé via `import 'slim-select/styles'`, l'élément natif est accessible via `instance.selectEl`, le conteneur visible est `.ss-main`
 - **FontAwesome 7** — préfixes `fa-solid`/`fa-regular`/`fa-brands` (pas `fas`/`far`/`fab`). Noms d'icônes : `house` (pas `home`), `screwdriver-wrench` (pas `tools`), `pen-to-square` (pas `edit`), `xmark` (pas `times`), `gear` (pas `cog`), `magnifying-glass` (pas `search`), `trash-can` (pas `trash-alt`), `right-to-bracket` (pas `sign-in-alt`), `right-from-bracket` (pas `sign-out-alt`), `rotate` (pas `sync-alt`), `triangle-exclamation` (pas `exclamation-triangle`). Dans les appels PHP `setIcon()`, le nom est passé sans le préfixe `fa-`
 
 ### PHPUnit 12

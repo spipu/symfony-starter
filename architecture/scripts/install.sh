@@ -27,9 +27,9 @@ set -e
 showMessage "Assets"
 ./bin/console assets:install --symlink --relative
 
-showMessage "YARN"
-yarn install
-yarn run encore dev
+showMessage "NPM"
+npm ci
+npm run dev
 
 showMessage "Redis"
 redis-cli -p 6379 flushall

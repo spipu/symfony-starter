@@ -16,6 +16,6 @@ showTitle "Watch"
 
 cd ${ENV_FOLDER}/${WEB_FOLDER}
 
-yarn watch
+npm run watch
 
 showMessage "End"

@@ -2,10 +2,10 @@
 
 ## Web Access
 
-| Site       | Url                         | Comment                               |
-|------------|-----------------------------|---------------------------------------|
-| Public     | https://starter.lxd/       |                                       | 
-| Admin      | https://starter.lxd/admin/ | Admin account must be used for log-in |
+| Site       | Url                        | Comment                                              |
+|------------|----------------------------|------------------------------------------------------|
+| Admin      | https://starter.lxd/       | Route `admin_home` = `/` — admin account must log in |
+| Login      | https://starter.lxd/login  |                                                      |
 
 You can use LXD, or Docker technology.
 

@@ -2,18 +2,19 @@
 
 ## Prerequisites
 
-[Node.js](https://nodejs.org/) and [Yarn](https://yarnpkg.com/) must be installed.
+Node.js (≥ 24, ships with npm) is provisioned in the dev environment. npm commands
+must always be run **inside the LXD** (reference Node version, lockfile consistent
+with the runtime) — never from the host.
 
 ## Commands
 
-All commands must be run from the `website/` directory:
-
 ```bash
-cd website/
+ssh delivery@starter.lxd
+cd /var/www/starter/website/
 
-yarn dev        # One-time development build
-yarn watch      # Watch mode — rebuild on file change
-yarn build      # Production build (minified, versioned)
+npm run dev     # One-time development build
+npm run watch   # Watch mode — rebuild on file change
+npm run build   # Production build (minified, versioned)
 ```
 
 Or via the architecture script (from the dev environment):
@@ -30,10 +31,8 @@ ssh delivery@starter.lxd
 | Bootstrap | 5.3 | CSS framework + JS components |
 | jQuery | 4.0 | DOM manipulation, required by Spipu UI bundles |
 | FontAwesome | 7 | Icons |
-| Swiper | 9 | Touch/carousel sliders |
-| slim-select | 2 | Enhanced `<select>` component |
-| Stimulus | 3 | Lightweight JS controllers |
-| Webpack Encore | 5 | Build toolchain |
+| slim-select | 4 | Enhanced `<select>` component |
+| Webpack Encore | 7 | Build toolchain (ESM-only, requires Babel 8) |
 | Sass | 1 | CSS preprocessor |
 
 ## Entry point and output
@@ -42,7 +41,7 @@ ssh delivery@starter.lxd
 |---|---|
 | `public/js/app.js` | Main webpack entry point |
 | `public/scss/main.scss` | Application SCSS styles |
-| `public/build/` | Compiled output (committed in production) |
+| `public/build/` | Compiled output (gitignored — built by `install.sh` / on deploy) |
 
 ### `app.js` — what it imports
 
@@ -59,7 +58,8 @@ window.jQuery = $;
 import '../bundles/spipuui/css/spipu-ui.css'
 import '../bundles/spipuui/js/spipu-...'
 
-// Application styles
+// App components and styles
+import './slim-selects'
 import '../scss/main.scss'
 ```
 
@@ -67,17 +67,18 @@ import '../scss/main.scss'
 
 ## Webpack configuration
 
-Key points in `webpack.config.js`:
+Key points in `webpack.config.mjs` (ESM — Encore 7 no longer supports CommonJS configs, and `Encore.getWebpackConfig()` is async, hence the top-level `await`):
 
 - **Output**: `public/build/`
 - **Source maps**: enabled in dev, disabled in prod
 - **Versioning** (fingerprinting): enabled in prod only
 - **Sass**: enabled via `enableSassLoader()`
+- **Polyfills**: Babel 8 removed `useBuiltIns`/`corejs` from preset-env; polyfills are provided by `babel-plugin-polyfill-corejs3` (`method: 'usage-global'`) pushed via `configureBabel()`
 - **jQuery 4 alias**: required to work around the `exports` field incompatibility with ProvidePlugin:
 
 ```js
 config.resolve.alias = {
-    'jquery$': path.resolve(__dirname, 'node_modules/jquery/dist/jquery.js'),
+    'jquery$': path.resolve(import.meta.dirname, 'node_modules/jquery/dist/jquery.js'),
 };
 ```
 
@@ -114,11 +115,22 @@ Common icon name changes:
 
 In PHP `setIcon()` calls, pass the icon name without the `fa-` prefix.
 
+## slim-select (v4)
+
+`public/js/slim-selects.js` wraps every `select.slim-select` in a SlimSelect instance
+(placeholder support, translated search texts, accent-insensitive filter, red border
+on empty required multi-selects). v4 specifics:
+
+- `searchPlaceholder`/`searchText` live under `settings:` (not at the root of the options)
+- CSS is imported via `import 'slim-select/styles'`
+- The native `<select>` is reachable via `instance.selectEl`; the visible container is `.ss-main`
+
 ## Adding a new library
 
 ```bash
-cd website/
-yarn add <package-name>
+ssh delivery@starter.lxd
+cd /var/www/starter/website/
+npm install <package-name>
 ```
 
 Then import it in `public/js/app.js` or directly in the component that needs it.

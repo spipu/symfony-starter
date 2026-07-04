@@ -1,6 +1,7 @@
 // code/js/slim-selects.js
 
 import SlimSelect from "slim-select";
+import "slim-select/styles";
 
 class SlimSelects {
     constructor() {
@@ -19,7 +20,7 @@ class SlimSelects {
         let placeHolder = node.attr('placeholder');
         if (placeHolder) {
             let nodePlaceHolder = $('<option data-placeholder="true"></option>');
-            if (!node.attr('multiple') && !selectedOption) {
+            if (!node.attr('multiple') && selectedOption.length === 0) {
                 nodePlaceHolder.attr('selected', true);
             }
             nodePlaceHolder.text(placeHolder);
@@ -27,9 +28,11 @@ class SlimSelects {
         }
 
         let options = {
-            select:            selectNode,
-            searchPlaceholder: translator.trans('app.slim_select.search'),
-            searchText:        translator.trans('app.slim_select.no_result'),
+            select: selectNode,
+            settings: {
+                searchPlaceholder: translator.trans('app.slim_select.search'),
+                searchText:        translator.trans('app.slim_select.no_result'),
+            },
             events: {
                 searchFilter: (option, search) => {
                     let normalizedOption = option.text.normalize('NFD').replace(/[\u0300-\u036f]/g,'');
@@ -46,14 +49,14 @@ class SlimSelects {
     }
 
     enableMultiselectRequire(id) {
-        $(this.get(id).select.element).change($.proxy(function () { this.changeMultiselectRequire(id); }, this));
+        $(this.get(id).selectEl).on('change', () => { this.changeMultiselectRequire(id); });
         this.changeMultiselectRequire(id);
     }
 
     changeMultiselectRequire(id) {
         let slimSelect = this.get(id);
-        let select = $(slimSelect.select.element);
-        let element = select.parent().find('.ss-multi-selected');
+        let select = $(slimSelect.selectEl);
+        let element = select.parent().find('.ss-main');
 
         if (select.val().length === 0 && select.attr('required')) {
             element.addClass('border-danger');

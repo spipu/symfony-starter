@@ -19,8 +19,8 @@ cd "${ENV_FOLDER}/${WEB_FOLDER}"
 showMessage "Composer"
 composer update
 
-showMessage "YARN"
-yarn upgrade
+showMessage "NPM"
+npm update --save
 
 showMessage "End"
 
