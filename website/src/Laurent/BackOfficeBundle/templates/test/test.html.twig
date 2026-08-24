@@ -1,0 +1,335 @@
+{% extends 'base.html.twig' %}
+
+{% set menuCurrentItem="app-test" %}
+
+{% block header_title %}{{ parent() }} - Test{% endblock %}
+
+{% block main_title %}Test{% endblock %}
+
+{% block body %}
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    Test form
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{{ path('admin_test') }}">
+                        <div class="mb-3">
+                            <label for="test_title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="test_title" name="title">
+                        </div>
+                        <div class="mb-3">
+                            <label for="test_description" class="form-label">Description</label>
+                            <textarea class="form-control" id="test_description" name="description" rows="4"></textarea>
+
+                            <div class="d-flex align-items-center gap-3 mt-2">
+                                <button type="button" id="stt-toggle" class="btn btn-primary">
+                                    <i class="stt-icon fa-solid fa-microphone"></i>
+                                    <span class="stt-label ms-1">Start Speech to Text</span>
+                                </button>
+
+                                <span id="stt-indicator" class="stt-indicator d-none align-items-center text-danger">
+                                    <span class="stt-dot me-2"></span>
+                                    <span class="fw-bold">Listening…</span>
+                                </span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success">Send</button>
+                    </form>
+
+                    {% if submittedData is not null %}
+                        <hr class="my-4">
+                        <h6>Debug — POST data</h6>
+                        <pre class="bg-light border rounded p-3">{% for key, value in submittedData %}{{ key }} = {{ value }}
+{% endfor %}</pre>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}{{ parent() }}
+    <style>
+        .stt-indicator.is-listening { display: inline-flex !important; }
+        .stt-dot {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: #dc3545;
+            box-shadow: 0 0 0 rgba(220, 53, 69, 0.6);
+            animation: stt-pulse 1.2s infinite;
+        }
+        @keyframes stt-pulse {
+            0%   { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.6); }
+            70%  { transform: scale(1);   box-shadow: 0 0 0 8px rgba(220, 53, 69, 0); }
+            100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}{{ parent() }}
+    <script>
+        'use strict';
+
+        /**
+         * Speech-to-Text controller: toggles the button UI (label, icon,
+         * color), shows the listening indicator, and drives the Web Speech
+         * API recognition with French spoken-punctuation post-processing.
+         */
+        class SpeechToTextController {
+            constructor(options) {
+                this.button = document.getElementById(options.buttonId);
+                this.indicator = document.getElementById(options.indicatorId);
+                this.textarea = document.getElementById(options.textareaId);
+
+                this.iconElement = this.button.querySelector('.stt-icon');
+                this.labelElement = this.button.querySelector('.stt-label');
+
+                this.lang = options.lang || 'fr-FR';
+
+                this.listening = false;
+
+                // Textarea content captured when listening starts (used as a
+                // prefix), plus the accumulator of final segments received
+                // while listening.
+                this.baseText = '';
+                this.finalTranscript = '';
+
+                // Tells a deliberate stop (Stop click) apart from an involuntary
+                // one (silence, browser timeout); we restart only in the latter.
+                this.manualStop = false;
+
+                this.states = {
+                    idle: {
+                        label: 'Start Speech to Text',
+                        iconClass: 'fa-solid fa-microphone',
+                        buttonClass: 'btn-primary',
+                    },
+                    listening: {
+                        label: 'Stop Speech to Text',
+                        iconClass: 'fa-solid fa-stop',
+                        buttonClass: 'btn-danger',
+                    },
+                };
+
+                this.allButtonClasses = ['btn-primary', 'btn-danger'];
+
+                this.recognition = this.createRecognition();
+
+                this.init();
+            }
+
+            createRecognition() {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+                if (!SpeechRecognition) {
+                    return null;
+                }
+
+                const recognition = new SpeechRecognition();
+                recognition.lang = this.lang;
+                recognition.continuous = true;
+                recognition.interimResults = true;
+
+                recognition.addEventListener('result', (event) => this.onResult(event));
+                recognition.addEventListener('error', (event) => this.onError(event));
+                recognition.addEventListener('end', () => this.onEnd());
+
+                return recognition;
+            }
+
+            init() {
+                if (!this.recognition) {
+                    this.disableUnsupported();
+                    return;
+                }
+
+                this.button.addEventListener('click', () => this.toggle());
+                this.render();
+            }
+
+            disableUnsupported() {
+                this.button.disabled = true;
+                this.labelElement.textContent = 'Speech to Text not supported by this browser';
+                console.warn('[STT] SpeechRecognition is not available in this browser.');
+            }
+
+            toggle() {
+                if (this.listening) {
+                    this.stop();
+                } else {
+                    this.start();
+                }
+            }
+
+            start() {
+                this.listening = true;
+                this.render();
+                this.startListening();
+            }
+
+            stop() {
+                this.listening = false;
+                this.render();
+                this.stopListening();
+            }
+
+            render() {
+                const state = this.listening ? this.states.listening : this.states.idle;
+
+                this.iconElement.className = 'stt-icon ' + state.iconClass;
+                this.labelElement.textContent = state.label;
+
+                this.button.classList.remove(...this.allButtonClasses);
+                this.button.classList.add(state.buttonClass);
+
+                this.indicator.classList.toggle('is-listening', this.listening);
+                this.indicator.classList.toggle('d-none', !this.listening);
+            }
+
+            // --- Microphone listening (Web Speech API) ----------------------
+
+            startListening() {
+                // Reuse the current textarea content as a prefix. Only add a
+                // separator space when it does not already end with whitespace
+                // (space OR \n), so an existing line break is never erased.
+                const current = this.textarea.value;
+                this.baseText = (current && !/\s$/.test(current)) ? current + ' ' : current;
+                this.finalTranscript = '';
+                this.manualStop = false;
+
+                try {
+                    this.recognition.start();
+                } catch (error) {
+                    // start() throws if a session is already active: ignore it.
+                    console.warn('[STT] start() ignored:', error.message);
+                }
+            }
+
+            stopListening() {
+                this.manualStop = true;
+                this.recognition.stop();
+            }
+
+            onResult(event) {
+                let interim = '';
+
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    const result = event.results[i];
+                    const transcript = result[0].transcript;
+
+                    if (result.isFinal) {
+                        this.finalTranscript += transcript;
+                    } else {
+                        interim += transcript;
+                    }
+                }
+
+                // finalTranscript stays raw (spoken punctuation words kept): we
+                // format only for display, which keeps the transform idempotent.
+                this.textarea.value = this.formatPunctuation(this.baseText + this.finalTranscript + interim);
+            }
+
+            formatPunctuation(text) {
+                let result = text;
+
+                // Each rule maps a RegExp (the French spoken punctuation — this
+                // is domain data, not code) to the symbol it produces. In the
+                // patterns: a trailing "s" is optional (s?), the article
+                // "le"/"les" is optional (les?), the verb can be "ouvre",
+                // "ouvrez" or "ouvrir", and both straight (') and curly (’)
+                // apostrophes are accepted. Longer/multi-word patterns come
+                // FIRST so they win over the single words that follow
+                // ("point d'interrogation" before "point", etc.).
+                const rules = [
+                    [/(?:retour\s+)?à\s+la\s+ligne|nouvelle\s+ligne/, '\n'],
+                    [/point\s+d['’]interrogation/, '?'],
+                    [/point\s+d['’]exclamation/, '!'],
+                    [/points?\s+de\s+suspension/, '…'],
+                    [/point[-\s]virgules?/, ';'],
+                    [/deux\s+points?/, ':'],
+                    [/(?:ouvre|ouvrez|ouvrir)\s+(?:la\s+)?parenthèses?/, '('],
+                    [/(?:ferme|fermez|fermer)\s+(?:la\s+)?parenthèses?/, ')'],
+                    [/(?:ouvre|ouvrez|ouvrir)\s+(?:les?\s+)?guillemets?/, '«'],
+                    [/(?:ferme|fermez|fermer)\s+(?:les?\s+)?guillemets?/, '»'],
+                    [/apostrophe/, "'"],
+                    [/tirets?/, '-'],
+                    [/virgules?/, ','],
+                    [/points?/, '.'],
+                ];
+
+                for (const [phrase, symbol] of rules) {
+                    // Wrap each pattern with (^|\s)...(?=\s|$) so it never
+                    // matches inside a word. For a line break we drop the
+                    // captured leading space (no trailing space left on the
+                    // previous line); for anything else we keep it and let the
+                    // spacing pass below fix it up.
+                    const pattern = new RegExp('(^|\\s)(?:' + phrase.source + ')(?=\\s|$)', 'gi');
+                    const replacement = symbol === '\n' ? '\n' : '$1' + symbol;
+                    result = result.replace(pattern, replacement);
+                }
+
+                // French typographic spacing. We use ONLY [ \t] (never \s) so
+                // line breaks are preserved: otherwise a \n just produced by
+                // "à la ligne" would be swallowed immediately.
+
+                // No space before, one space after: , . …
+                result = result.replace(/[ \t]*([,.…])[ \t]*/g, '$1 ');
+                // Space before AND after (French rule): ; : ! ? »
+                result = result.replace(/[ \t]*([;:!?»])[ \t]*/g, ' $1 ');
+                // Opening guillemet « : space before and after.
+                result = result.replace(/[ \t]*«[ \t]*/g, ' « ');
+                // Parentheses: space before the opening, after the closing one.
+                result = result.replace(/[ \t]*\([ \t]*/g, ' (');
+                result = result.replace(/[ \t]*\)[ \t]*/g, ') ');
+                // Apostrophe: no surrounding space.
+                result = result.replace(/[ \t]*'[ \t]*/g, "'");
+
+                // No trimming: just collapse multiple spaces into a single one
+                // (leaving \n and the string ends untouched).
+                result = result.replace(/ {2,}/g, ' ');
+
+                return result;
+            }
+
+            onError(event) {
+                console.warn('[STT] recognition error:', event.error);
+
+                if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+                    // Microphone denied: stop and reset the UI to idle.
+                    this.manualStop = true;
+                    this.forceIdle();
+                }
+            }
+
+            onEnd() {
+                // The API stops on its own (silence, timeout) while we still
+                // want to listen -> restart it for a truly continuous mode.
+                if (this.listening && !this.manualStop) {
+                    try {
+                        this.recognition.start();
+                    } catch (error) {
+                        console.warn('[STT] restart failed:', error.message);
+                        this.forceIdle();
+                    }
+                }
+            }
+
+            forceIdle() {
+                this.listening = false;
+                this.render();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new SpeechToTextController({
+                buttonId: 'stt-toggle',
+                indicatorId: 'stt-indicator',
+                textareaId: 'test_description',
+            });
+        });
+    </script>
+{% endblock %}

@@ -39,3 +39,4 @@ app:
     menu:
         admin: "Admin"
         admin_user: "Admin Users"
+        test: "Test"
