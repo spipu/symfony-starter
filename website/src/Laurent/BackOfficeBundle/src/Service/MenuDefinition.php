@@ -32,7 +32,7 @@ class MenuDefinition implements DefinitionInterface // phpcs:disable Generic.Fil
 
         $this->mainItem
             ->setIcon('wrench', $this->environment->getCurrentColor(), $this->environment->getCurrentName())
-            ->setCssClass('navbar-dark bg-menu-app')
+            ->setCssClass('spipu-navbar-on-dark bg-menu-app')
             ->addChild('spipu.ui.page.home', 'app-home', 'admin_home')
                 ->setIcon('house')
                 ->setACL(true)
