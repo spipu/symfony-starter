@@ -1,7 +1,7 @@
 # Only For system parameters
 imports:
     - { resource: ../app_default_configuration.yaml }
-    - { resource: /etc/starter/symfony.yaml, ignore_errors: true  }
+    - { resource: /etc/symfony/starter.yaml, ignore_errors: true  }
 
 # Other parameters
 parameters:

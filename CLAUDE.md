@@ -142,7 +142,7 @@ Webpack Encore 7 (ESM-only : config dans `webpack.config.mjs`, `getWebpackConfig
 
 Le projet **n'utilise pas `.env`** pour la configuration de production. À la place :
 - `config/app_default_configuration.yaml` — valeurs par défaut (SQLite, secrets temporaires, filesystem cache). Sert de repli pour les tests et le dev local.
-- `/etc/starter/symfony.yaml` — fichier **hors dépôt**, déployé par l'hébergeur, contient les vraies valeurs (DB, Redis, secrets). Chargé via `imports` dans `framework.yaml` avec `ignore_errors: true`.
+- `/etc/symfony/starter.yaml` — fichier **hors dépôt**, déployé par l'hébergeur, contient les vraies valeurs (DB, Redis, secrets). Chargé via `imports` dans `framework.yaml` avec `ignore_errors: true`.
 
 Tous les paramètres suivent la convention `APP_SETTINGS_*` et sont référencés dans les configs Symfony via `%APP_SETTINGS_XXX%`.
 

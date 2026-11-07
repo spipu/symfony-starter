@@ -5,9 +5,9 @@
 Configuration parameters are resolved in this order (last wins):
 
 1. `website/config/app_default_configuration.yaml` — default values (SQLite, no Redis, null mailer)
-2. `/etc/starter/symfony.yaml` — production overrides (ignored if file does not exist)
+2. `/etc/symfony/starter.yaml` — production overrides (ignored if file does not exist)
 
-The production file `/etc/starter/symfony.yaml` is provisioned by the deployment scripts and is **not** tracked in the repository.
+The production file `/etc/symfony/starter.yaml` is provisioned by the deployment scripts and is **not** tracked in the repository.
 
 ## Parameters reference
 
@@ -30,7 +30,7 @@ The production file `/etc/starter/symfony.yaml` is provisioned by the deployment
 | `APP_SETTINGS_SESSION_HANDLER` | `null` | Session handler service id (`null` = filesystem) |
 | `ENV_HOST` | `starter.lxd` | Public hostname used by HostService |
 
-## Production example (`/etc/starter/symfony.yaml`)
+## Production example (`/etc/symfony/starter.yaml`)
 
 ```yaml
 parameters:

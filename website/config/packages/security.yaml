@@ -30,9 +30,11 @@ security:
                 default_target_path: admin_home
             remember_me:
                 secret: "%kernel.secret%"
-                name: op_user_remember
-                lifetime: 2592000 # 1 month
+                name: starter_remember
+                lifetime: 604800 # 7 days
                 httponly: true
+                secure: auto
+                signature_properties: ['password', 'email']
             logout:
                 path: spipu_user_security_logout
                 target: admin_home

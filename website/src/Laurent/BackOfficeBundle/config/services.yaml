@@ -34,3 +34,4 @@ services:
             $entityClassName:      '\Laurent\CoreBundle\Entity\AdminUser'
             $allowAccountCreation: false
             $allowPasswordRecovery: true
+            $allowRememberMe:      true

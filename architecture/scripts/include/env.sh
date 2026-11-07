@@ -44,7 +44,7 @@ if [[ ! -f "${LOCAL_FILE}" ]]; then
     echo "#!/bin/bash"                  >  ${LOCAL_FILE}
     echo ""                             >> ${LOCAL_FILE}
     echo "# Docker Parameters"          >> ${LOCAL_FILE}
-    echo "ENV_DOCKER_IP=\"127.0.10.1\"" >> ${LOCAL_FILE}
+    echo "ENV_DOCKER_IP=\"127.0.50.1\"" >> ${LOCAL_FILE}
     echo "ENV_DOCKER_PORT_START=\"0\""  >> ${LOCAL_FILE}
     echo "ENV_ARCHITECTURE=\"amd64\""   >> ${LOCAL_FILE}
     echo "DB_HOST=\"localhost\""        >> ${LOCAL_FILE}
