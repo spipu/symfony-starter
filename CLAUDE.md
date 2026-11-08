@@ -27,7 +27,7 @@ Ne **jamais** lancer npm depuis l'hôte — comme composer, les commandes npm s'
 ./quality/phpunit.sh --coverage  # Run with coverage (opens Firefox report)
 ```
 
-**IMPORTANT — Claude ne lance JAMAIS `phpunit.sh`** : le script écrit dans `/etc/hosts` via `sudo` et doit rester à la main de l'utilisateur. Pour vérifier la santé du code, utilise `cache:warmup`, `debug:container`, `debug:router` en SSH sur la LXD. **Quand le code est prêt, dire explicitement à l'utilisateur** qu'il peut lancer `./quality/phpunit.sh` — ne pas l'attendre silencieusement.
+Claude lance `./quality/phpunit.sh --no-browser` lui-même, comme les autres scripts de `quality/` (aucun `sudo`).
 
 **Browser de test** : par défaut Firefox headless. Si Claude est redémarré avec `--chrome` (ou si l'utilisateur mentionne Chrome), basculer les tests Panther sur Chrome (voir `tests/WebTestCase.php` — `'browser' => self::FIREFOX` → `self::CHROME`).
 
