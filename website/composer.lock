@@ -1842,16 +1842,16 @@
         },
         {
             "name": "spipu/dashboard-bundle",
-            "version": "v5.2.1",
+            "version": "v5.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spipu/symfony-bundle-dashboard.git",
-                "reference": "740f268978b131868d06aaa7f8aa988b83b981c9"
+                "reference": "53d354023db3c1f81c3ed32a390725a01287c4d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spipu/symfony-bundle-dashboard/zipball/740f268978b131868d06aaa7f8aa988b83b981c9",
-                "reference": "740f268978b131868d06aaa7f8aa988b83b981c9",
+                "url": "https://api.github.com/repos/spipu/symfony-bundle-dashboard/zipball/53d354023db3c1f81c3ed32a390725a01287c4d4",
+                "reference": "53d354023db3c1f81c3ed32a390725a01287c4d4",
                 "shasum": ""
             },
             "require": {
@@ -1885,10 +1885,10 @@
             "description": "Spipu Dashboard Bundle",
             "support": {
                 "issues": "https://github.com/spipu/symfony-bundle-dashboard/issues",
-                "source": "https://github.com/spipu/symfony-bundle-dashboard/tree/v5.2.1"
+                "source": "https://github.com/spipu/symfony-bundle-dashboard/tree/v5.2.2"
             },
-            "time": "2026-11-01T14:14:15+00:00",
-            "published-time": "2026-11-01T14:18:24+00:00"
+            "time": "2026-11-07T22:51:17+00:00",
+            "published-time": "2026-11-07T23:18:01+00:00"
         },
         {
             "name": "spipu/html2pdf",
@@ -7769,16 +7769,16 @@
         },
         {
             "name": "symfony/webpack-encore-bundle",
-            "version": "2.4.2",
+            "version": "v2.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/webpack-encore-bundle.git",
-                "reference": "0cbc3485f127cd9f85e395f8177607ef00535634"
+                "reference": "1ee41bc5bf67fd89215aedebc66a6f151098c288"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/webpack-encore-bundle/zipball/0cbc3485f127cd9f85e395f8177607ef00535634",
-                "reference": "0cbc3485f127cd9f85e395f8177607ef00535634",
+                "url": "https://api.github.com/repos/symfony/webpack-encore-bundle/zipball/1ee41bc5bf67fd89215aedebc66a6f151098c288",
+                "reference": "1ee41bc5bf67fd89215aedebc66a6f151098c288",
                 "shasum": ""
             },
             "require": {
@@ -7821,7 +7821,7 @@
             "description": "Integration of your Symfony app with Webpack Encore",
             "support": {
                 "issues": "https://github.com/symfony/webpack-encore-bundle/issues",
-                "source": "https://github.com/symfony/webpack-encore-bundle/tree/2.4.2"
+                "source": "https://github.com/symfony/webpack-encore-bundle/tree/v2.4.3"
             },
             "funding": [
                 {
@@ -7841,8 +7841,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-17T12:45:02+00:00",
-            "published-time": "2026-09-17T12:47:33+00:00"
+            "time": "2026-11-08T08:19:17+00:00",
+            "published-time": "2026-11-08T08:20:13+00:00"
         },
         {
             "name": "symfony/yaml",

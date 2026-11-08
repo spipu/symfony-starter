@@ -2,6 +2,8 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+> **Self-sufficiency notice for AI assistants:** This file is the **sole source of truth** for project conventions, coding standards, and collaboration rules. The repo is worked on from multiple machines; any local auto-memory (e.g. `~/.claude/projects/.../memory/`) is **not** synchronized between those machines and must not be read from or written to for this project. If a rule or fact isn't documented here, ask the maintainer — don't infer from local state. When the maintainer reveals a durable rule or preference during a session, propose updating `CLAUDE.md` rather than saving to local memory.
+
 ## Project Overview
 
 Symfony 7.4 starter template (PHP 8.3+) with a custom suite of **Spipu bundles** providing core infrastructure: authentication, admin dashboard, background process management, configuration, and UI components.
@@ -201,3 +203,13 @@ sudo apt-get install php8.3-curl php8.3-cli php-xdebug php-pdo php-sqlite3
 - `$this->returnArgument()` / `$this->returnCallback()` → `->willReturnArgument()` / `->willReturnCallback()`
 - Les bundles Spipu créent des mocks sans expectations → ajouter `#[AllowMockObjectsWithoutExpectations]` sur les classes de test concrètes (pas seulement la classe parente)
 - Pour afficher le détail des notices PHPUnit : `--display-phpunit-notices` (pas `--display-notices`)
+
+## Maintainer Documentation Base (conditional)
+
+If the directory `~/git/claude/memory/` exists on the current machine, load it at session start **in addition to** this file (it is a git-synchronized documentation base, not the local auto-memory excluded by the self-sufficiency notice above):
+
+1. All instruction files in `~/git/claude/memory/instructions/` (read `_main.md` first).
+2. Everything those instructions mandate (notably `~/git/claude/memory/index.md` and `~/git/claude/memory/prompts/_main.md`, including its `.claude/commands/spipu-*.md` synchronization directive).
+3. All files in `~/git/claude/memory/chantiers/`.
+
+If the directory does not exist, skip this section silently — this file remains the sole source of truth.
